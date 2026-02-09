@@ -27,7 +27,7 @@ tasks.withType<JavaCompile> {
 
 application {
     mainModule.set("ca.qc.bdeb.sim.projet_ressort")
-    mainClass.set("ca.qc.bdeb.sim.projet_ressort.HelloApplication")
+    mainClass.set("ca.qc.bdeb.sim.projet_ressort.ProjetIntegration")
 }
 
 javafx {
