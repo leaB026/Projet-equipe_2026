@@ -1,7 +1,6 @@
 plugins {
     java
     application
-    id("org.jetbrains.kotlin.jvm") version "2.1.20"
     id("org.javamodularity.moduleplugin") version "1.8.15"
     id("org.openjfx.javafxplugin") version "0.0.13"
     id("org.beryx.jlink") version "2.25.0"
@@ -16,17 +15,19 @@ repositories {
 
 val junitVersion = "5.12.1"
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
 
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
 }
 
 application {
-    mainModule.set("projet2026.projet2026_ressorts")
-    mainClass.set("projet2026.projet2026_ressorts.HelloApplication")
-}
-kotlin {
-    jvmToolchain(17)
+    mainModule.set("projet2026.integrationprojet26ressorts")
+    mainClass.set("projet2026.integrationprojet26ressorts.HelloApplication")
 }
 
 javafx {
