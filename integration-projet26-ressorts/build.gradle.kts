@@ -27,7 +27,7 @@ tasks.withType<JavaCompile> {
 
 application {
     mainModule.set("projet2026.integrationprojet26ressorts")
-    mainClass.set("projet2026.integrationprojet26ressorts.HelloApplication")
+    mainClass.set("projet2026.integrationprojet26ressorts.ProjetIntegration")
 }
 
 javafx {
