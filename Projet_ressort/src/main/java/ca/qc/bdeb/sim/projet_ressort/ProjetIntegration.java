@@ -2,9 +2,11 @@ package ca.qc.bdeb.sim.projet_ressort;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -19,7 +21,7 @@ public class ProjetIntegration extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         var root = new Pane();
-        root.setBackground(Background.fill(Color.BLACK));
+        root.setBackground(Background.fill(Color.WHITE));
         var scene = new Scene(root, WIDTH, HEIGHT);
         var canvas = new Canvas(WIDTH, HEIGHT);
         root.getChildren().add(canvas);
@@ -43,19 +45,34 @@ public class ProjetIntegration extends Application {
                 context.clearRect(0, 0, WIDTH, HEIGHT);
 
                 simulation.update(deltaTemps);
-                simulation.draw(context);
+                simulation.draw(context, simulation);
 
 
             }
         };
         timer.start();
-//        scene.setOnKeyPressed((e) -> conditionInput(e.getCode()));
-//        scene.setOnKeyReleased((e) -> Input.setKeyPressed(e.getCode(), false));
+        scene.setOnKeyPressed((e) -> conditionInput(e.getCode()));
+        scene.setOnKeyReleased((e) -> Input.setKeyPressed(e.getCode(), false));
+
 
 
         stage.setScene(scene);
         stage.setTitle("Boing Boing 3000");
         stage.show();
     }
+
+public void conditionInput(KeyCode e) {
+    if (e == KeyCode.ESCAPE) {
+        //FermeJavaFX
+        Platform.exit();
+    } else if (e == KeyCode.D) {
+    } else if (e == KeyCode.F) {
+    } else if (e == KeyCode.I) {
+    }
+
+    else {
+        Input.setKeyPressed(e, true);
+    }
+}
 }
 
