@@ -29,16 +29,31 @@ public class Simulation {
             creationPersonnage = true;
         }
         boolean personnageNextDroite = Input.isKeyPressed(KeyCode.RIGHT);
+        boolean personnageNextGauche = Input.isKeyPressed(KeyCode.LEFT);
+
         chronometre += deltaTemps;
-        if (personnageNextDroite) {
+        if (personnageNextDroite || personnageNextGauche) {
             if(chronometre > 0.2) {
-                if (indexPersonnage < personnages.size()) {
-                    personnageChoisie = personnages.get(indexPersonnage++);
-                } else {
-                    indexPersonnage = 0;
-                    personnageChoisie = personnages.get(indexPersonnage++);
+                if(personnageNextDroite) {
+                    if (indexPersonnage < personnages.size() && 0 < indexPersonnage) {
+                        personnageChoisie = personnages.get(indexPersonnage++);
+                    } else {
+                        indexPersonnage = 0;
+                        personnageChoisie = personnages.get(indexPersonnage++);
+                    }
+                    chronometre = 0;
                 }
-                chronometre = 0;
+                if (personnageNextGauche){
+                    if (indexPersonnage < personnages.size() && 0 <= indexPersonnage) {
+                        personnageChoisie = personnages.get(indexPersonnage--);
+                    } else {
+                        indexPersonnage = personnages.size();
+                        personnageChoisie = personnages.get(indexPersonnage--);
+                    }
+                    chronometre = 0;
+                }
+
+
             }
         }
     }
