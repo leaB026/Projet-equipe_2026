@@ -12,31 +12,31 @@ import static ca.qc.bdeb.sim.projet_ressort.ProjetIntegration.WIDTH;
 
 public class Simulation {
 
-    ArrayList<Image> personnages = new ArrayList<>();
+    ArrayList<Image> image = new ArrayList<>();
+    ArrayList<ChoixPersonnage> personnages = new ArrayList<>();
+    ChoixPersonnage personnageChoisie = new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 191, HEIGHT * 0.1), new Point2D(382, 459),new Image("hooke1.png") );
     boolean creationPersonnage = false;
-    Image imagePersonnage = new Image("Personnage1.png");
+//    ChoixPersonnage personnageChoisie;
+//    Image imagePersonnage = new Image("hooke1.png");
     int indexPersonnage = 0;
     double chronometre;
 
-    ChoixPersonnage personnage = new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 100, HEIGHT * 0.25), new Point2D(170, 325));
-
     public void update(double deltaTemps) {
         if (!creationPersonnage) {
-            personnages.add(new Image("Personnage1.png"));
-            personnages.add(new Image("Personnage2.png"));
-            personnages.add(new Image("Personnage3.png"));
-            personnages.add(new Image("Personnage4.png"));
+            personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 191, HEIGHT * 0.1), new Point2D(382, 459),new Image("hooke1.png") ));
+            personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 178, HEIGHT * 0.1), new Point2D(357, 525),new Image("hooke2.png") ));
+            personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 185, HEIGHT * 0.1 + 50), new Point2D(370, 396),new Image("hooke3.png") ));
             creationPersonnage = true;
         }
         boolean personnageNextDroite = Input.isKeyPressed(KeyCode.RIGHT);
         chronometre += deltaTemps;
         if (personnageNextDroite) {
-            if(chronometre > 0.25) {
+            if(chronometre > 0.2) {
                 if (indexPersonnage < personnages.size()) {
-                    imagePersonnage = personnages.get(indexPersonnage++);
+                    personnageChoisie = personnages.get(indexPersonnage++);
                 } else {
                     indexPersonnage = 0;
-                    imagePersonnage = personnages.get(indexPersonnage++);
+                    personnageChoisie = personnages.get(indexPersonnage++);
                 }
                 chronometre = 0;
             }
@@ -44,7 +44,7 @@ public class Simulation {
     }
 
     public void draw(GraphicsContext context, Simulation simulation) {
-        personnage.draw(context, simulation, imagePersonnage);
+        personnageChoisie.draw(context, simulation, personnageChoisie);
     }
 
 }

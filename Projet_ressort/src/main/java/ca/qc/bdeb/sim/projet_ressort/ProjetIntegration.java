@@ -21,12 +21,10 @@ import java.util.ArrayList;
 public class ProjetIntegration extends Application {
 
     public static final double WIDTH = 900, HEIGHT = 580;
-    ArrayList<String> personnages = new ArrayList<>();
-
 
     @Override
     public void start(Stage stage) throws IOException {
-        personnages.add("Personnage1.png");
+
         var root = new Pane();
         root.setBackground(Background.fill(Color.WHITE));
         var scene = new Scene(root, WIDTH, HEIGHT);

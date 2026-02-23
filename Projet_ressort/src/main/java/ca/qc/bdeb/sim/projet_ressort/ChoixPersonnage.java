@@ -8,11 +8,13 @@ import java.util.ArrayList;
 
 public class ChoixPersonnage extends ObjetsStatique {
     Simulation simulation;
+    Image image;
 
     ArrayList<Simulation> personnage = new ArrayList<>();
 
-    public ChoixPersonnage(Point2D position, Point2D taille) {
+    public ChoixPersonnage(Point2D position, Point2D taille,  Image image) {
         super(position, taille);
+        this.image = image;
     }
 
     @Override
@@ -23,10 +25,10 @@ public class ChoixPersonnage extends ObjetsStatique {
     }
 
     @Override
-    protected void draw(GraphicsContext contexte, Simulation simulation, Image image) {
+    protected void draw(GraphicsContext contexte, Simulation simulation, ChoixPersonnage personnage) {
         super.draw(contexte, simulation);
 
-        contexte.drawImage(image, position.getX(), position.getY(), taille.getX(), taille.getY());
+        contexte.drawImage(personnage.image, position.getX(), position.getY(), taille.getX(), taille.getY());
 
 
 

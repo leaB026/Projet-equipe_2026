@@ -20,5 +20,5 @@ public abstract class ObjetsStatique extends ObjetDuJeu{
         super.draw(contexte, simulation/*, modeDebuge, modeChamp1*/);
     }
 
-    protected abstract void draw(GraphicsContext contexte, Simulation simulation, Image image);
+    protected abstract void draw(GraphicsContext contexte, Simulation simulation, ChoixPersonnage personnage);
 }
