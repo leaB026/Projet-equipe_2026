@@ -2,8 +2,9 @@ package ca.qc.bdeb.sim.projet_ressort;
 
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
-public class ObjetsStatique extends ObjetDuJeu{
+public abstract class ObjetsStatique extends ObjetDuJeu{
 
     public ObjetsStatique(Point2D position, Point2D taille) {
         super(position, new Point2D(0,0), taille);
@@ -18,4 +19,6 @@ public class ObjetsStatique extends ObjetDuJeu{
     protected void draw(GraphicsContext contexte, Simulation simulation/*, boolean modeDebuge, boolean modeChamp1*/) {
         super.draw(contexte, simulation/*, modeDebuge, modeChamp1*/);
     }
+
+    protected abstract void draw(GraphicsContext contexte, Simulation simulation, Image image);
 }
