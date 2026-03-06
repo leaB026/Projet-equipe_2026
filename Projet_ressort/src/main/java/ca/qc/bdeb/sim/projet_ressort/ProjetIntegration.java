@@ -21,6 +21,8 @@ import java.util.ArrayList;
 public class ProjetIntegration extends Application {
 
     public static final double WIDTH = 900, HEIGHT = 580;
+    private Simulation simulation;
+
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -56,10 +58,12 @@ public class ProjetIntegration extends Application {
             }
         };
         timer.start();
-        scene.setOnKeyPressed((e) -> conditionInput(e.getCode()));
-        scene.setOnKeyReleased((e) -> Input.setKeyPressed(e.getCode(), false));
-        scene.setOnMousePressed((e) -> conditionInput2(e));
 
+        this.simulation = simulation;
+        scene.setOnKeyPressed((e) -> conditionInput(e.getCode()));
+//        scene.setOnKeyReleased((e) -> Input.setKeyPressed(e.getCode(), false));
+//        scene.setOnKeyTyped((e) -> conditionInput(e.getCode()));
+//        scene.setOnMousePressed((e) -> conditionInput2(e));
 
         stage.setScene(scene);
         stage.setTitle("Boing Boing 3000");
@@ -70,16 +74,18 @@ public class ProjetIntegration extends Application {
         if (e == KeyCode.ESCAPE) {
             //FermeJavaFX
             Platform.exit();
-        } else if (e == KeyCode.D) {
-        } else if (e == KeyCode.F) {
-        } else if (e == KeyCode.I) {
-        } else {
-            Input.setKeyPressed(e, true);
         }
+        if (e == KeyCode.LEFT) {
+            simulation.personnagePrecedent();
+        } else if (e == KeyCode.RIGHT) {
+            simulation.personnageSuivant();
+        }
+
+        Input.setKeyPressed(e, true);
+
     }
 
     public void conditionInput2(MouseEvent e) {
-
 
 
     }

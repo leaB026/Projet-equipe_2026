@@ -21,6 +21,7 @@ public class Simulation {
     int indexPersonnage = 0;
     double chronometre;
 
+
     public void update(double deltaTemps) {
         if (!creationPersonnage) {
             personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 191, HEIGHT * 0.1), new Point2D(382, 459), new Image("hooke1.png")));
@@ -28,47 +29,33 @@ public class Simulation {
             personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 185, HEIGHT * 0.1 + 50), new Point2D(370, 396), new Image("hooke3.png")));
             creationPersonnage = true;
         }
-        boolean personnageNextDroite = Input.isKeyPressed(KeyCode.RIGHT);
-        boolean personnageNextGauche = Input.isKeyPressed(KeyCode.LEFT);
+//        boolean personnageNextDroite = Input.isKeyPressed(KeyCode.RIGHT);
+//        boolean personnageNextGauche = Input.isKeyPressed(KeyCode.LEFT);
 
-        chronometre += deltaTemps;
-        if (personnageNextDroite || personnageNextGauche) {
-            if (chronometre > 0.2) {
-                if (personnageNextDroite) {
-                    indexPersonnage++;
+    }
+    public void personnageSuivant(){
+        indexPersonnage++;
 
-                    if (indexPersonnage > personnages.size() - 1) {
-                        indexPersonnage = 0;
-                    }
+        if (indexPersonnage > personnages.size() - 1) {
+            indexPersonnage = 0;
+        }
 
-                    if (!personnages.isEmpty()) {
-                        personnageChoisie = personnages.get(indexPersonnage);
-                    }
-                    chronometre = 0;
-                }
-
-                
-                if (personnageNextGauche) {
-
-                    indexPersonnage--;
-
-                    if (indexPersonnage < 0) {
-                        indexPersonnage = personnages.size() - 1;
-                    }
-
-                    if (!personnages.isEmpty()) {
-                        personnageChoisie = personnages.get(indexPersonnage);
-                    }
-
-                    chronometre = 0;
-
-                }
-
-
-            }
+        if (!personnages.isEmpty()) {
+            personnageChoisie = personnages.get(indexPersonnage);
         }
     }
 
+    public void personnagePrecedent(){
+        indexPersonnage--;
+
+        if (indexPersonnage < 0) {
+            indexPersonnage = personnages.size() - 1;
+        }
+
+        if (!personnages.isEmpty()) {
+            personnageChoisie = personnages.get(indexPersonnage);
+        }
+    }
 
     public void draw(GraphicsContext context, Simulation simulation) {
         personnageChoisie.draw(context, simulation, personnageChoisie);
