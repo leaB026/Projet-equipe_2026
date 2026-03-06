@@ -14,18 +14,18 @@ public class Simulation {
 
     ArrayList<Image> image = new ArrayList<>();
     ArrayList<ChoixPersonnage> personnages = new ArrayList<>();
-    ChoixPersonnage personnageChoisie = new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 191, HEIGHT * 0.1), new Point2D(382, 459),new Image("hooke1.png") );
+    ChoixPersonnage personnageChoisie = new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 191, HEIGHT * 0.1), new Point2D(382, 459), new Image("hooke1.png"));
     boolean creationPersonnage = false;
-//    ChoixPersonnage personnageChoisie;
+    //    ChoixPersonnage personnageChoisie;
 //    Image imagePersonnage = new Image("hooke1.png");
     int indexPersonnage = 0;
     double chronometre;
 
     public void update(double deltaTemps) {
         if (!creationPersonnage) {
-            personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 191, HEIGHT * 0.1), new Point2D(382, 459),new Image("hooke1.png") ));
-            personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 178, HEIGHT * 0.1), new Point2D(357, 525),new Image("hooke2.png") ));
-            personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 185, HEIGHT * 0.1 + 50), new Point2D(370, 396),new Image("hooke3.png") ));
+            personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 191, HEIGHT * 0.1), new Point2D(382, 459), new Image("hooke1.png")));
+            personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 178, HEIGHT * 0.1), new Point2D(357, 525), new Image("hooke2.png")));
+            personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 185, HEIGHT * 0.1 + 50), new Point2D(370, 396), new Image("hooke3.png")));
             creationPersonnage = true;
         }
         boolean personnageNextDroite = Input.isKeyPressed(KeyCode.RIGHT);
@@ -33,30 +33,42 @@ public class Simulation {
 
         chronometre += deltaTemps;
         if (personnageNextDroite || personnageNextGauche) {
-            if(chronometre > 0.2) {
-                if(personnageNextDroite) {
-                    if (indexPersonnage < personnages.size() && 0 < indexPersonnage) {
-                        personnageChoisie = personnages.get(indexPersonnage++);
-                    } else {
+            if (chronometre > 0.2) {
+                if (personnageNextDroite) {
+                    indexPersonnage++;
+
+                    if (indexPersonnage > personnages.size() - 1) {
                         indexPersonnage = 0;
-                        personnageChoisie = personnages.get(indexPersonnage++);
+                    }
+
+                    if (!personnages.isEmpty()) {
+                        personnageChoisie = personnages.get(indexPersonnage);
                     }
                     chronometre = 0;
                 }
-                if (personnageNextGauche){
-                    if (indexPersonnage < personnages.size() && 0 <= indexPersonnage) {
-                        personnageChoisie = personnages.get(indexPersonnage--);
-                    } else {
-                        indexPersonnage = personnages.size();
-                        personnageChoisie = personnages.get(indexPersonnage--);
+
+                
+                if (personnageNextGauche) {
+
+                    indexPersonnage--;
+
+                    if (indexPersonnage < 0) {
+                        indexPersonnage = personnages.size() - 1;
                     }
+
+                    if (!personnages.isEmpty()) {
+                        personnageChoisie = personnages.get(indexPersonnage);
+                    }
+
                     chronometre = 0;
+
                 }
 
 
             }
         }
     }
+
 
     public void draw(GraphicsContext context, Simulation simulation) {
         personnageChoisie.draw(context, simulation, personnageChoisie);
