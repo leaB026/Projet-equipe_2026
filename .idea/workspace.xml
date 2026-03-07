@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0ac44528-8b9e-4b86-8be3-46440daea13b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/integration-projet26-ressorts/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/integration-projet26-ressorts/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/integration-projet26-ressorts/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/integration-projet26-ressorts/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/integration-projet26-ressorts/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/integration-projet26-ressorts/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/integration-projet26-ressorts/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/integration-projet26-ressorts/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/integration-projet26-ressorts/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/integration-projet26-ressorts/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/integration-projet26-ressorts/settings.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/integration-projet26-ressorts/src/main/java/module-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/integration-projet26-ressorts/src/main/java/projet2026/integrationprojet26ressorts/HelloController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/integration-projet26-ressorts/src/main/java/projet2026/integrationprojet26ressorts/Input.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/integration-projet26-ressorts/src/main/java/projet2026/integrationprojet26ressorts/Launcher.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/integration-projet26-ressorts/src/main/java/projet2026/integrationprojet26ressorts/ProjetIntegration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/integration-projet26-ressorts/src/main/java/projet2026/integrationprojet26ressorts/Simulation.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="3AdH1FIzWVWh04IqZ6KaSLL9snf" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "android.gradle.sync.needed": "true",
+    "git-widget-placeholder": "1-test",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/charl/Projet-equipe_2026",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.31033.145" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.31033.145" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0ac44528-8b9e-4b86-8be3-46440daea13b" name="Changes" comment="" />
+      <created>1772915310193</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1772915310193</updated>
+      <workItem from="1772915311253" duration="252000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

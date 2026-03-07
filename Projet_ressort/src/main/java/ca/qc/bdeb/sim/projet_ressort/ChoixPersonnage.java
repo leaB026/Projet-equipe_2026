@@ -3,6 +3,7 @@ package ca.qc.bdeb.sim.projet_ressort;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ public class ChoixPersonnage extends ObjetsStatique {
 
     ArrayList<Simulation> personnage = new ArrayList<>();
 
-    public ChoixPersonnage(Point2D position, Point2D taille,  Image image) {
+    public ChoixPersonnage(Point2D position, Point2D taille, Image image) {
         super(position, taille);
         this.image = image;
     }
@@ -30,7 +31,9 @@ public class ChoixPersonnage extends ObjetsStatique {
 
         contexte.drawImage(personnage.image, position.getX(), position.getY(), taille.getX(), taille.getY());
 
-
+        contexte.setFill(Color.RED);
+        contexte.fillRect(200, 320, 30, 80);
+        contexte.fillRect(650, 320, 30, 80);
 
     }
 

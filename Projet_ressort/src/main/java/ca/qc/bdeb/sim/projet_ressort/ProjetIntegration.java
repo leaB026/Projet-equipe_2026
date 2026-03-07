@@ -63,7 +63,7 @@ public class ProjetIntegration extends Application {
         scene.setOnKeyPressed((e) -> conditionInput(e.getCode()));
 //        scene.setOnKeyReleased((e) -> Input.setKeyPressed(e.getCode(), false));
 //        scene.setOnKeyTyped((e) -> conditionInput(e.getCode()));
-//        scene.setOnMousePressed((e) -> conditionInput2(e));
+        scene.setOnMouseClicked((e) -> conditionInput2(e));
 
         stage.setScene(scene);
         stage.setTitle("Boing Boing 3000");
@@ -86,6 +86,23 @@ public class ProjetIntegration extends Application {
     }
 
     public void conditionInput2(MouseEvent e) {
+        if (e.getButton() == MouseButton.PRIMARY) {
+            double positionX = e.getX();
+            double positionY = e.getY();
+            System.out.println("Cliquer!");
+
+
+            if (positionY > 320 && positionY < 400) {
+
+                if (positionX > 200 && positionX < 230) {
+                    simulation.personnagePrecedent();
+                }else if (positionX > 650 && positionX < 680){
+                    simulation.personnageSuivant();
+                }
+            }
+
+
+        }
 
 
     }

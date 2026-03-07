@@ -29,8 +29,6 @@ public class Simulation {
             personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 185, HEIGHT * 0.1 + 50), new Point2D(370, 396), new Image("hooke3.png")));
             creationPersonnage = true;
         }
-//        boolean personnageNextDroite = Input.isKeyPressed(KeyCode.RIGHT);
-//        boolean personnageNextGauche = Input.isKeyPressed(KeyCode.LEFT);
 
     }
     public void personnageSuivant(){
