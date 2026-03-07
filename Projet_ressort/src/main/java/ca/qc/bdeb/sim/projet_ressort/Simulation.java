@@ -36,6 +36,16 @@ public class Simulation {
 
     }
 
+    public void draw(GraphicsContext context, Simulation simulation, boolean pageIntro) {
+        if (pageIntro) {
+            personnageChoisie.draw(context, simulation, personnageChoisie);
+            flecheG.draw(context, simulation);
+            flecheR.draw(context, simulation);
+            confirmation.draw(context,simulation);
+        }else{
+
+        }
+    }
     public void personnageSuivant() {
         indexPersonnage++;
 
@@ -59,14 +69,4 @@ public class Simulation {
             personnageChoisie = personnages.get(indexPersonnage);
         }
     }
-
-    public void draw(GraphicsContext context, Simulation simulation, boolean pageIntro) {
-        if (pageIntro) {
-            personnageChoisie.draw(context, simulation, personnageChoisie);
-            flecheG.draw(context, simulation);
-            flecheR.draw(context, simulation);
-            confirmation.draw(context,simulation);
-        }
-    }
-
 }
