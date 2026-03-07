@@ -21,8 +21,6 @@ public class ChoixPersonnage extends ObjetsStatique {
     @Override
     protected void update(double deltaTemps, Simulation simulation) {
         super.update(deltaTemps, simulation);
-
-
     }
 
     @Override
@@ -30,13 +28,9 @@ public class ChoixPersonnage extends ObjetsStatique {
         super.draw(contexte, simulation);
 
         contexte.drawImage(personnage.image, position.getX(), position.getY(), taille.getX(), taille.getY());
-
-        contexte.setFill(Color.RED);
-        contexte.fillRect(200, 320, 30, 80);
-        contexte.fillRect(650, 320, 30, 80);
-
-        contexte.setFill(Color.GREEN);
-        contexte.fillRect(410, 520 , 80, 30 );
+//
+//        contexte.setFill(Color.GREEN);
+//        contexte.fillRect(410, 520 , 80, 30 );
 
     }
 
