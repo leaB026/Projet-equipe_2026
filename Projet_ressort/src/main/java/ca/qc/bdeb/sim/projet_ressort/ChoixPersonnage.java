@@ -35,6 +35,9 @@ public class ChoixPersonnage extends ObjetsStatique {
         contexte.fillRect(200, 320, 30, 80);
         contexte.fillRect(650, 320, 30, 80);
 
+        contexte.setFill(Color.GREEN);
+        contexte.fillRect(410, 520 , 80, 30 );
+
     }
 
 }

@@ -25,7 +25,7 @@ public class Simulation {
     public void update(double deltaTemps) {
         if (!creationPersonnage) {
             personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 191, HEIGHT * 0.1), new Point2D(382, 459), new Image("hooke1.png")));
-            personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 178, HEIGHT * 0.1), new Point2D(357, 525), new Image("hooke2.png")));
+            personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 178, HEIGHT * 0.05), new Point2D(357, 525), new Image("hooke2.png")));
             personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 185, HEIGHT * 0.1 + 50), new Point2D(370, 396), new Image("hooke3.png")));
             creationPersonnage = true;
         }
@@ -55,8 +55,11 @@ public class Simulation {
         }
     }
 
-    public void draw(GraphicsContext context, Simulation simulation) {
-        personnageChoisie.draw(context, simulation, personnageChoisie);
+    public void draw(GraphicsContext context, Simulation simulation, boolean pageIntro) {
+        if(pageIntro){
+            personnageChoisie.draw(context, simulation, personnageChoisie);
+
+        }
     }
 
 }

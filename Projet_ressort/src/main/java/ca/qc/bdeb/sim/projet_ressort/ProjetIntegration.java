@@ -22,6 +22,7 @@ public class ProjetIntegration extends Application {
 
     public static final double WIDTH = 900, HEIGHT = 580;
     private Simulation simulation;
+    protected boolean pageIntro = true;
 
 
     @Override
@@ -52,7 +53,7 @@ public class ProjetIntegration extends Application {
                 context.clearRect(0, 0, WIDTH, HEIGHT);
 
                 simulation.update(deltaTemps);
-                simulation.draw(context, simulation);
+                simulation.draw(context, simulation, pageIntro);
 
 
             }
@@ -63,7 +64,7 @@ public class ProjetIntegration extends Application {
         scene.setOnKeyPressed((e) -> conditionInput(e.getCode()));
 //        scene.setOnKeyReleased((e) -> Input.setKeyPressed(e.getCode(), false));
 //        scene.setOnKeyTyped((e) -> conditionInput(e.getCode()));
-        scene.setOnMouseClicked((e) -> conditionInput2(e));
+        scene.setOnMousePressed((e) -> conditionInput2(e));
 
         stage.setScene(scene);
         stage.setTitle("Boing Boing 3000");
@@ -89,8 +90,6 @@ public class ProjetIntegration extends Application {
         if (e.getButton() == MouseButton.PRIMARY) {
             double positionX = e.getX();
             double positionY = e.getY();
-            System.out.println("Cliquer!");
-
 
             if (positionY > 320 && positionY < 400) {
 
@@ -101,6 +100,11 @@ public class ProjetIntegration extends Application {
                 }
             }
 
+            if (positionY > 520 && positionY < 550){
+                if(positionX >410 && positionX < 490){
+                    pageIntro = false;
+                }
+            }
 
         }
 
