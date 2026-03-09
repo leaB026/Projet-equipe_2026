@@ -28,9 +28,6 @@ public class ChoixPersonnage extends ObjetsStatique {
         super.draw(contexte, simulation);
 
         contexte.drawImage(personnage.image, position.getX(), position.getY(), taille.getX(), taille.getY());
-//
-//        contexte.setFill(Color.GREEN);
-//        contexte.fillRect(410, 520 , 80, 30 );
 
     }
 

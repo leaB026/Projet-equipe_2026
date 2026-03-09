@@ -3,7 +3,6 @@ package ca.qc.bdeb.sim.projet_ressort;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;
 
@@ -11,6 +10,7 @@ import static ca.qc.bdeb.sim.projet_ressort.ProjetIntegration.HEIGHT;
 import static ca.qc.bdeb.sim.projet_ressort.ProjetIntegration.WIDTH;
 
 public class Simulation {
+    Simulation simulation;
 
     ArrayList<Image> image = new ArrayList<>();
     ArrayList<ChoixPersonnage> personnages = new ArrayList<>();
@@ -23,6 +23,9 @@ public class Simulation {
     FlecheChoixPersonnage flecheG = new FlecheChoixPersonnage(new Point2D(200, 320), new Point2D(30, 80));
     FlecheChoixPersonnage flecheR = new FlecheChoixPersonnage(new Point2D(650, 320), new Point2D(30, 80));
 
+//    PersonnageQuiSaute personnageFinal = new PersonnageQuiSaute(new Point2D(200, 320), new Point2D(0,0), new Point2D(personnageChoisie.getTaille().getX(), personnageChoisie.getTaille().getY()), personnageChoisie.image);
+
+    PersonnageQuiSaute carrer= new PersonnageQuiSaute(new Point2D( 0,0), new Point2D() )
     ConfirmationChoixPersonnage confirmation = new ConfirmationChoixPersonnage(new Point2D(410,520), new Point2D(80,30));
 
     public void update(double deltaTemps) {
@@ -32,6 +35,7 @@ public class Simulation {
             personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 185, HEIGHT * 0.1 + 50), new Point2D(370, 396), new Image("hooke3.png")));
             creationPersonnage = true;
         }
+        personnageFinal.update(deltaTemps, simulation);
 
 
     }
@@ -43,7 +47,7 @@ public class Simulation {
             flecheR.draw(context, simulation);
             confirmation.draw(context,simulation);
         }else{
-
+            personnageFinal.draw(context, simulation);
         }
     }
     public void personnageSuivant() {

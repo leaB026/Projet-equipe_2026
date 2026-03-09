@@ -59,7 +59,6 @@ public abstract class ObjetDuJeu {
         return position.add(taille.multiply(1 / 2.0));
     }
 
-
 }
 
 
