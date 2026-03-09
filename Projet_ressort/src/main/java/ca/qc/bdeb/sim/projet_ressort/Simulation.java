@@ -23,18 +23,20 @@ public class Simulation {
     FlecheChoixPersonnage flecheG = new FlecheChoixPersonnage(new Point2D(200, 320), new Point2D(30, 80));
     FlecheChoixPersonnage flecheR = new FlecheChoixPersonnage(new Point2D(650, 320), new Point2D(30, 80));
 
-    PersonnageQuiSaute personnageFinal = new PersonnageQuiSaute(new Point2D(200, 320), new Point2D(0,0), new Point2D(personnageChoisie.getTaille().getX(), personnageChoisie.getTaille().getY()), personnageChoisie.image);
-
+    PersonnageQuiSaute personnageFinal;
     ConfirmationChoixPersonnage confirmation = new ConfirmationChoixPersonnage(new Point2D(410,520), new Point2D(80,30));
 
-    public void update(double deltaTemps) {
+    public void update(double deltaTemps, boolean pageIntro) {
         if (!creationPersonnage) {
             personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 191, HEIGHT * 0.1), new Point2D(382, 459), new Image("hooke1.png")));
             personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 178, HEIGHT * 0.05), new Point2D(357, 525), new Image("hooke2.png")));
             personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 185, HEIGHT * 0.1 + 50), new Point2D(370, 396), new Image("hooke3.png")));
             creationPersonnage = true;
         }
-        personnageFinal.update(deltaTemps, simulation);
+        if(!pageIntro) {
+            personnageFinal =  new PersonnageQuiSaute(new Point2D(200, 320), new Point2D(0,0), new Point2D(personnageChoisie.getTaille().getX(), personnageChoisie.getTaille().getY()), personnageChoisie.image);
+            personnageFinal.update(deltaTemps, simulation);
+        }
 
 
     }
@@ -46,6 +48,7 @@ public class Simulation {
             flecheR.draw(context, simulation);
             confirmation.draw(context,simulation);
         }else{
+            personnageFinal = new PersonnageQuiSaute(new Point2D(200, 320), new Point2D(0,0), new Point2D(personnageChoisie.getTaille().getX(), personnageChoisie.getTaille().getY()), personnageChoisie.image);
             personnageFinal.draw(context, simulation);
         }
     }

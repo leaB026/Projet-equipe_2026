@@ -52,7 +52,7 @@ public class ProjetIntegration extends Application {
 
                 context.clearRect(0, 0, WIDTH, HEIGHT);
 
-                simulation.update(deltaTemps);
+                simulation.update(deltaTemps, pageIntro);
                 simulation.draw(context, simulation, pageIntro);
 
 
