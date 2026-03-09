@@ -21,7 +21,6 @@ public class PersonnageQuiSaute extends ObjetDuJeu{
     @Override
     protected void draw(GraphicsContext contexte, Simulation simulation) {
         super.draw(contexte, simulation);
-        contexte.fillRect( 300, 400, 20, 30);
         contexte.drawImage(nom, position.getX(), position.getY(), taille.getX(), taille.getY());
 
     }
