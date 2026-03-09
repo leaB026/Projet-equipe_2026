@@ -14,27 +14,31 @@ public class Simulation {
 
     ArrayList<Image> image = new ArrayList<>();
     ArrayList<ChoixPersonnage> personnages = new ArrayList<>();
-    ChoixPersonnage personnageChoisie = new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 191, HEIGHT * 0.1), new Point2D(382, 459), new Image("hooke1.png"));
+    ChoixPersonnage personnageChoisie = new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 150, HEIGHT * 0.1), new Point2D(300, 381), new Image("hooke1.png"));
     boolean creationPersonnage = false;
     //    ChoixPersonnage personnageChoisie;
 //    Image imagePersonnage = new Image("hooke1.png");
     int indexPersonnage = 0;
     double chronometre;
-    FlecheChoixPersonnage flecheG = new FlecheChoixPersonnage(new Point2D(200, 320), new Point2D(30, 80));
-    FlecheChoixPersonnage flecheR = new FlecheChoixPersonnage(new Point2D(650, 320), new Point2D(30, 80));
+    FlecheChoixPersonnage flecheG = new FlecheChoixPersonnage(new Point2D(200, 320), new Point2D(30, 80), new Image("flecheGauche.png"));
+    FlecheChoixPersonnage flecheR = new FlecheChoixPersonnage(new Point2D(650, 320), new Point2D(30, 80), new Image("flecheDroite.png"));
 
     PersonnageQuiSaute personnageFinal;
-    ConfirmationChoixPersonnage confirmation = new ConfirmationChoixPersonnage(new Point2D(410,520), new Point2D(80,30));
+    boolean creerPersonnage = false;
+    ConfirmationChoixPersonnage confirmation = new ConfirmationChoixPersonnage(new Point2D(410, 520), new Point2D(80, 30));
 
     public void update(double deltaTemps, boolean pageIntro) {
         if (!creationPersonnage) {
-            personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 191, HEIGHT * 0.1), new Point2D(382, 459), new Image("hooke1.png")));
-            personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 178, HEIGHT * 0.05), new Point2D(357, 525), new Image("hooke2.png")));
-            personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 185, HEIGHT * 0.1 + 50), new Point2D(370, 396), new Image("hooke3.png")));
+            personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 150, HEIGHT * 0.1), new Point2D(300, 381), new Image("hooke1.png")));
+            personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 150, HEIGHT * 0.05), new Point2D(300, 471), new Image("HOOKE2.png")));
+            personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 150, HEIGHT * 0.1 + 50), new Point2D(300, 360), new Image("HOOKE3.png")));
             creationPersonnage = true;
         }
-        if(!pageIntro) {
-            personnageFinal =  new PersonnageQuiSaute(new Point2D(200, 320), new Point2D(0,0), new Point2D(personnageChoisie.getTaille().getX(), personnageChoisie.getTaille().getY()), personnageChoisie.image);
+        if (!pageIntro) {
+            if (!creerPersonnage) {
+                personnageFinal = new PersonnageQuiSaute(new Point2D(WIDTH * 0.5 - personnageChoisie.taille.getX()*0.5, HEIGHT - personnageChoisie.taille.getY()), new Point2D(0, 0), new Point2D(personnageChoisie.getTaille().getX(), personnageChoisie.getTaille().getY()), personnageChoisie.image);
+                creerPersonnage = true;
+            }
             personnageFinal.update(deltaTemps, simulation);
         }
 
@@ -43,15 +47,16 @@ public class Simulation {
 
     public void draw(GraphicsContext context, Simulation simulation, boolean pageIntro) {
         if (pageIntro) {
+            context.drawImage(new Image("bgRose.jpeg"),0,0, WIDTH, HEIGHT);
             personnageChoisie.draw(context, simulation, personnageChoisie);
             flecheG.draw(context, simulation);
             flecheR.draw(context, simulation);
-            confirmation.draw(context,simulation);
-        }else{
-            personnageFinal = new PersonnageQuiSaute(new Point2D(200, 320), new Point2D(0,0), new Point2D(personnageChoisie.getTaille().getX(), personnageChoisie.getTaille().getY()), personnageChoisie.image);
+            confirmation.draw(context, simulation);
+        } else {
             personnageFinal.draw(context, simulation);
         }
     }
+
     public void personnageSuivant() {
         indexPersonnage++;
 

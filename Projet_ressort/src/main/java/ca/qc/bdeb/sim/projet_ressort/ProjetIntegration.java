@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class ProjetIntegration extends Application {
 
     public static final double WIDTH = 900, HEIGHT = 580;
+
     private Simulation simulation;
     protected boolean pageIntro = true;
 
