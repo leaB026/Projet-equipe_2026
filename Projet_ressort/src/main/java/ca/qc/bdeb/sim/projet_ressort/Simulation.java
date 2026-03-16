@@ -36,7 +36,7 @@ public class Simulation {
         }
         if (!pageIntro) {
             if (!creerPersonnage) {
-                personnageFinal = new PersonnageQuiSaute(new Point2D(WIDTH * 0.5 - personnageChoisie.taille.getX()*0.5, HEIGHT - personnageChoisie.taille.getY()), new Point2D(0, 0), new Point2D(personnageChoisie.getTaille().getX(), personnageChoisie.getTaille().getY()), personnageChoisie.image);
+                personnageFinal = new PersonnageQuiSaute(new Point2D(WIDTH * 0.5 - personnageChoisie.taille.getX()*0.25, HEIGHT ), new Point2D(0, 0), new Point2D(personnageChoisie.getTaille().getX()*0.5, personnageChoisie.getTaille().getY()*0.5), personnageChoisie.image);
                 creerPersonnage = true;
             }
             personnageFinal.update(deltaTemps, simulation);

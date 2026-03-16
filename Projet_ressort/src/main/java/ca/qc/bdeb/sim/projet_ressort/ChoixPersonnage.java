@@ -3,6 +3,7 @@ package ca.qc.bdeb.sim.projet_ressort;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -21,6 +22,17 @@ public class ChoixPersonnage extends ObjetsStatique {
     @Override
     protected void update(double deltaTemps, Simulation simulation) {
         super.update(deltaTemps, simulation);
+
+//        boolean gauche = Input.isKeyPressed(KeyCode.LEFT);
+//        boolean droite = Input.isKeyPressed(KeyCode.RIGHT);
+//
+//
+//        if (gauche) {
+//            simulation.personnagePrecedent();
+//        }
+//        if (droite) {
+//            simulation.personnageSuivant();
+//        }
     }
 
     @Override

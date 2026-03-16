@@ -63,9 +63,10 @@ public class ProjetIntegration extends Application {
 
         this.simulation = simulation;
         scene.setOnKeyPressed((e) -> conditionInput(e.getCode()));
-//        scene.setOnKeyReleased((e) -> Input.setKeyPressed(e.getCode(), false));
-//        scene.setOnKeyTyped((e) -> conditionInput(e.getCode()));
         scene.setOnMousePressed((e) -> conditionInput2(e));
+        scene.setOnMouseReleased(e ->Input.setMousePressed(e.getButton(), false));
+        scene.setOnMouseDragged((e) ->Input.setMousePosition(e.getX(), e.getY()));
+
 
         stage.setScene(scene);
         stage.setTitle("Boing Boing 3000");
@@ -88,6 +89,10 @@ public class ProjetIntegration extends Application {
     }
 
     public void conditionInput2(MouseEvent e) {
+
+        Input.setMousePressed(e.getButton(), true);
+        Input.setMousePosition(e.getX(), e.getY());
+
         if (e.getButton() == MouseButton.PRIMARY) {
             double positionX = e.getX();
             double positionY = e.getY();
