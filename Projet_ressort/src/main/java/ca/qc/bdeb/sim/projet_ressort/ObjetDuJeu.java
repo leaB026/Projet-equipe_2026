@@ -51,6 +51,9 @@ public abstract class ObjetDuJeu {
 //        }
     }
 
+    public double getHaut() {
+        return position.getY();
+    }
     public double getBas() {
         return position.getY() + taille.getY();
     }
@@ -59,6 +62,25 @@ public abstract class ObjetDuJeu {
         return position.add(taille.multiply(1 / 2.0));
     }
 
+    public void setPosition(Point2D position) {
+        this.position = position;
+    }
+
+    public void setVelocite(Point2D velocite) {
+        this.velocite = velocite;
+    }
+
+    public Point2D getAcceleration() {
+        return acceleration;
+    }
+
+    public void setAcceleration(Point2D acceleration) {
+        this.acceleration = acceleration;
+    }
+
+    public void setTaille(Point2D taille) {
+        this.taille = taille;
+    }
 }
 
 

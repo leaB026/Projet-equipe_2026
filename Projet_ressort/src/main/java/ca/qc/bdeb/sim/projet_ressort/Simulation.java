@@ -24,6 +24,8 @@ public class Simulation {
     FlecheChoixPersonnage flecheR = new FlecheChoixPersonnage(new Point2D(650, 320), new Point2D(30, 80), new Image("flecheDroite.png"));
 
     PersonnageQuiSaute personnageFinal;
+    Ressort ressort;
+    Planet planet;
     boolean creerPersonnage = false;
     ConfirmationChoixPersonnage confirmation = new ConfirmationChoixPersonnage(new Point2D(410, 520), new Point2D(80, 30));
 
@@ -36,24 +38,28 @@ public class Simulation {
         }
         if (!pageIntro) {
             if (!creerPersonnage) {
-                personnageFinal = new PersonnageQuiSaute(new Point2D(WIDTH * 0.5 - personnageChoisie.taille.getX()*0.25, HEIGHT ), new Point2D(0, 0), new Point2D(personnageChoisie.getTaille().getX()*0.5, personnageChoisie.getTaille().getY()*0.5), personnageChoisie.image);
+                personnageFinal = new PersonnageQuiSaute(new Point2D(WIDTH * 0.5 - personnageChoisie.taille.getX() * 0.25, HEIGHT *0.5), new Point2D(0, 0), new Point2D(personnageChoisie.getTaille().getX() * 0.5, personnageChoisie.getTaille().getY() * 0.5), personnageChoisie.image, 20);
                 creerPersonnage = true;
+                ressort = new Ressort(new Point2D(WIDTH * 0.5 - 201 / 2, HEIGHT - 64), new Point2D(201, 64), 100, 0.2);
+                planet = new Planet(9.81, new Image("bgRose.jpeg"));
             }
-            personnageFinal.update(deltaTemps, simulation);
-        }
 
+            personnageFinal.updateCollisionRessort(deltaTemps, simulation, ressort.estEnCollision(personnageFinal), ressort,planet);
+
+        }
 
     }
 
     public void draw(GraphicsContext context, Simulation simulation, boolean pageIntro) {
         if (pageIntro) {
-            context.drawImage(new Image("bgRose.jpeg"),0,0, WIDTH, HEIGHT);
+            context.drawImage(new Image("bgRose.jpeg"), 0, 0, WIDTH, HEIGHT);
             personnageChoisie.draw(context, simulation, personnageChoisie);
             flecheG.draw(context, simulation);
             flecheR.draw(context, simulation);
             confirmation.draw(context, simulation);
         } else {
             personnageFinal.draw(context, simulation);
+            ressort.draw(context, simulation);
         }
     }
 
