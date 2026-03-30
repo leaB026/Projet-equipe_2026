@@ -19,13 +19,14 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
     double masse;
     double coefficientAmortisement;
 
+    boolean toucheLeSol;
+
     public PersonnageQuiSaute(Point2D position, Point2D velocite, Point2D taille, Image nom, double masse) {
         super(position, velocite, taille);
         this.nom = nom;
         this.toucheLeTrampoline = true;
         this.masse = masse;
 //        this.coefficientAmortisement = ressort.ConstanteCoefficientDAmortissement * (2 * Math.pow(masse * ressort.constanteDeRappel, 0.5));
-
     }
 
 
@@ -46,7 +47,7 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
             double bas = position.getY() + taille.getY();
             double compressionActuelle = (ressort.position.getY() + ressort.taille.getY()) + bas;
             ressort.setCompression(compressionActuelle);
-            forceHooke = - ressort.constanteDeRappel * compressionActuelle;
+            forceHooke = -ressort.constanteDeRappel * compressionActuelle;
 
             double coefficientAmortisement = ressort.ConstanteCoefficientDAmortissement * (2 * Math.pow(masse * ressort.constanteDeRappel, 0.5));
             forceAmortisement = -coefficientAmortisement * velocite.getY();
@@ -67,9 +68,9 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
         updatePhysique(deltaTemps);
 
 //Collision et effet sur le ressort
-        if(!encollision && getBas() < ressort.getHaut()){
+        if (!encollision && getBas() < ressort.getHaut()) {
             toucheLeTrampoline = false;
-        }else if (encollision){
+        } else if (encollision) {
             toucheLeTrampoline = true;
         }
 
@@ -83,7 +84,9 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
                 positionX > position.getX() &&
                 positionX < position.getX() + taille.getX();
 
-        if (click && selectionner && toucheLeTrampoline) {
+       toucheLeSol = ((position.getY() + taille.getY()) == HEIGHT);
+
+        if (click && selectionner /*&& (toucheLeTrampoline || toucheLeSol)*/) {
             estEnTrainDeTirerPersonnage = true;
         }
 
