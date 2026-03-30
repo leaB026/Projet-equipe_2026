@@ -8,7 +8,7 @@ public abstract class ObjetDuJeu {
 
     protected Point2D position;
     protected Point2D velocite;
-    protected Point2D acceleration = new Point2D(0, 1500);
+    protected Point2D acceleration = new Point2D(0, 0);
     protected Point2D taille;
     protected double tempsTotal = 0;
 

@@ -36,8 +36,6 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
     protected void updateCollisionRessort(double deltaTemps, Simulation simulation, boolean encollision, Ressort ressort, Planet planet) {
         tempsTotal += deltaTemps;
 
-
-
 //Calcules des forces et du mouvement physique du personnage et ressort
 
         double forceTotal;
@@ -46,9 +44,9 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
 
         if (encollision) {
             double bas = position.getY() + taille.getY();
-            double compressionActuelle = (ressort.position.getY() + ressort.taille.getY()) - bas;
+            double compressionActuelle = (ressort.position.getY() + ressort.taille.getY()) + bas;
             ressort.setCompression(compressionActuelle);
-            forceHooke = ressort.constanteDeRappel * compressionActuelle;
+            forceHooke = - ressort.constanteDeRappel * compressionActuelle;
 
             double coefficientAmortisement = ressort.ConstanteCoefficientDAmortissement * (2 * Math.pow(masse * ressort.constanteDeRappel, 0.5));
             forceAmortisement = -coefficientAmortisement * velocite.getY();
@@ -102,10 +100,14 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
         }
 
         position = new Point2D(position.getX(),
-                Math.clamp(position.getY(), -3000,HEIGHT-taille.getY())
+                Math.clamp(position.getY(), -3000, HEIGHT - taille.getY())
         );
 
-        
+        System.out.println("encollision: " + encollision +
+                " | compression: " + ressort.compression +
+                " | forceHooke: " + forceHooke +
+                " | velociteY: " + velocite.getY() +
+                " | positionY: " + position.getY());
     }
 
 
