@@ -38,7 +38,7 @@ public class Simulation {
         }
         if (!pageIntro) {
             if (!creerPersonnage) {
-                ressort = new Ressort(new Point2D(WIDTH * 0.5 - 201 / 2, HEIGHT - 64), new Point2D(201, 64), 100, 0.2);
+                ressort = new Ressort(new Point2D(WIDTH * 0.5 - 201 / 2, HEIGHT - 64), new Point2D(201, 64), 100, 0.9);
                 planet = new Planet(9.81, new Image("bgRose.jpeg"));
                 personnageFinal = new PersonnageQuiSaute(new Point2D(WIDTH * 0.5 - personnageChoisie.taille.getX() * 0.25, HEIGHT*0.5), new Point2D(0, 0), new Point2D(personnageChoisie.getTaille().getX() * 0.5, personnageChoisie.getTaille().getY() * 0.5), personnageChoisie.image, 20);
                 creerPersonnage = true;

@@ -11,9 +11,7 @@ public class Ressort extends ObjetsStatique {
 
     double compression = 0;
 
-    public void setCompression(double compression) {
-        this.compression = Math.max(0, Math.min(compression, taille.getY()*0.8));
-    }
+
 
     public Ressort(Point2D position, Point2D taille, double constanteDeRappel, double constanteCoefficientDAmortissement) {
         super(position, taille);
@@ -26,7 +24,9 @@ public class Ressort extends ObjetsStatique {
         super.update(deltaTemps, simulation);
 
     }
-
+    public void setCompression(double compression) {
+        this.compression =Math.max(0, Math.min(compression, taille.getY()*0.8));
+    }
     @Override
     protected void draw(GraphicsContext contexte, Simulation simulation) {
         super.draw(contexte, simulation);

@@ -44,14 +44,16 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
         double forceAmortisement;
 
         if (encollision) {
-            double bas = position.getY() + taille.getY();
-            double compressionActuelle = (ressort.position.getY() + ressort.taille.getY()) + bas;
+//            double compressionActuelle = getBas() - ressort.getHaut();
+            double compressionActuelle = (ressort.position.getY() + ressort.taille.getY()) + getBas();
             ressort.setCompression(compressionActuelle);
             forceHooke = -ressort.constanteDeRappel * compressionActuelle;
 
             double coefficientAmortisement = ressort.ConstanteCoefficientDAmortissement * (2 * Math.pow(masse * ressort.constanteDeRappel, 0.5));
             forceAmortisement = -coefficientAmortisement * velocite.getY();
 
+
+            System.out.println(    " | compressionActuelle: " + compressionActuelle ); // ajoute ça
         } else {
             forceHooke = 0;
             forceAmortisement = 0;
@@ -67,6 +69,20 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
 //La vitesse et la position
         updatePhysique(deltaTemps);
 
+        // Arrêter le rebond quand la vitesse est assez petite
+//        if (Math.abs(velocite.getY()) < 50 && encollision) {
+//            velocite = new Point2D(velocite.getX(), 0);
+//            position = new Point2D(position.getX(), ressort.position.getY() - taille.getY());
+//            ressort.setCompression(0);
+//
+//            velocite = new Point2D(velocite.getX(), 0);
+//            position = new Point2D(position.getX(), ressort.position.getY() - taille.getY());
+//            ressort.setCompression(0);
+//            setAcceleration(new Point2D(acceleration.getX(), 0)); // ← ajoute ça
+//            return; // ← et ça, pour stopper toute la mise à jour
+//
+//        }
+
 //Collision et effet sur le ressort
         if (!encollision && getBas() < ressort.getHaut()) {
             toucheLeTrampoline = false;
@@ -79,12 +95,9 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
         double positionX = Input.getMouseX();
         double positionY = Input.getMouseY();
 
-        boolean selectionner = positionY > position.getY() &&
-                positionY < position.getY() + taille.getY() &&
-                positionX > position.getX() &&
-                positionX < position.getX() + taille.getX();
+        boolean selectionner = positionY > position.getY() && positionY < position.getY() + taille.getY() && positionX > position.getX() && positionX < position.getX() + taille.getX();
 
-       toucheLeSol = ((position.getY() + taille.getY()) == HEIGHT);
+        toucheLeSol = ((position.getY() + taille.getY()) == HEIGHT);
 
         if (click && selectionner /*&& (toucheLeTrampoline || toucheLeSol)*/) {
             estEnTrainDeTirerPersonnage = true;
@@ -102,15 +115,15 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
             toucheLeTrampoline = false;
         }
 
-        position = new Point2D(position.getX(),
-                Math.clamp(position.getY(), -3000, HEIGHT - taille.getY())
-        );
+        position = new Point2D(position.getX(), Math.clamp(position.getY(), -3000, HEIGHT - taille.getY()));
 
-        System.out.println("encollision: " + encollision +
-                " | compression: " + ressort.compression +
-                " | forceHooke: " + forceHooke +
-                " | velociteY: " + velocite.getY() +
-                " | positionY: " + position.getY());
+        System.out.println(
+                "encollision: " + encollision +
+                        " | velociteY: " + velocite.getY() +
+                        " | forceHooke: " + forceHooke +
+                        " | forceAmortisement: " + forceAmortisement +
+                        " | compression: " + ressort.compression
+        );
     }
 
 
