@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -61,6 +62,20 @@ public class ProjetIntegration extends Application {
         };
         timer.start();
 
+        // MENU DEROULANT PLANEET
+        ChoiceBox<String> menuPlanetes = new ChoiceBox<>();
+
+        menuPlanetes.getItems().addAll("Terre", "Lune", "Mars");
+        menuPlanetes.setValue("Terre");
+        menuPlanetes.setLayoutX(WIDTH - 160);
+        menuPlanetes.setLayoutY(20);
+        menuPlanetes.setPrefWidth(140);
+        root.getChildren().add(menuPlanetes);
+
+        menuPlanetes.setOnAction(e -> {
+            String choix = menuPlanetes.getValue();
+            simulation.changerPlanete(choix);
+        });
         this.simulation = simulation;
         scene.setOnKeyPressed((e) -> conditionInput(e.getCode()));
         scene.setOnMousePressed((e) -> conditionInput2(e));

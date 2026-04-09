@@ -38,9 +38,9 @@ public class Simulation {
         }
         if (!pageIntro) {
             if (!creerPersonnage) {
-                ressort = new Ressort(new Point2D(WIDTH * 0.5 - 201 / 2, HEIGHT - 64), new Point2D(201, 64), 100, 0.9);
+                ressort = new Ressort(new Point2D(WIDTH * 0.5 - 201 / 2, HEIGHT - 64), new Point2D(201, 64), 3000, 0.15);
                 planet = new Planet(9.81, new Image("bgRose.jpeg"));
-                personnageFinal = new PersonnageQuiSaute(new Point2D(WIDTH * 0.5 - personnageChoisie.taille.getX() * 0.25, HEIGHT*0.5), new Point2D(0, 0), new Point2D(personnageChoisie.getTaille().getX() * 0.5, personnageChoisie.getTaille().getY() * 0.5), personnageChoisie.image, 20);
+                personnageFinal = new PersonnageQuiSaute(new Point2D(WIDTH * 0.25 - personnageChoisie.taille.getX() * 0.25, HEIGHT*0.5), new Point2D(0, 0), new Point2D(personnageChoisie.getTaille().getX() * 0.5, personnageChoisie.getTaille().getY() * 0.5), personnageChoisie.image, 20);
                 creerPersonnage = true;
             }
 
@@ -58,9 +58,17 @@ public class Simulation {
             flecheR.draw(context, simulation);
             confirmation.draw(context, simulation);
         } else {
+
+
+            if (planet != null) {
+                context.drawImage(planet.image, 0, 0, WIDTH, HEIGHT);
+            }
             personnageFinal.draw(context, simulation);
             ressort.draw(context, simulation);
         }
+
+
+
     }
 
     public void personnageSuivant() {
@@ -86,4 +94,12 @@ public class Simulation {
             personnageChoisie = personnages.get(indexPersonnage);
         }
     }
+    public void changerPlanete(String nomPlanete) {
+        if (planet == null) return;
+        switch (nomPlanete) {
+            case "Terre" -> planet = new Planet(9.81, new Image("bgRose.jpeg"));
+            case "Lune"  -> planet = new Planet(1.62, new Image("bgLune.jpeg"));
+            case "Mars"  -> planet = new Planet(3.72, new Image("bgMars.jpeg"));
+        } }
+
 }

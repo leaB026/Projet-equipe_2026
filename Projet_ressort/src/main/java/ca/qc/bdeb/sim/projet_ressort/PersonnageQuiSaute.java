@@ -18,7 +18,7 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
     boolean estEnTrainDeTirerPersonnage;
     double masse;
     double coefficientAmortisement;
-
+    double compressionActuelle;
     boolean toucheLeSol;
 
     public PersonnageQuiSaute(Point2D position, Point2D velocite, Point2D taille, Image nom, double masse) {
@@ -45,26 +45,38 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
 
         if (encollision) {
 //            double compressionActuelle = getBas() - ressort.getHaut();
-            double compressionActuelle = (ressort.position.getY() + ressort.taille.getY()) + getBas();
+//            compressionActuelle = (ressort.position.getY() + ressort.taille.getY()) + getBas();
+//            compressionActuelle = getBas() - (ressort.position.getY() + ressort.taille.getY());
+            double compressionActuelle = Math.max(0, getBas() - ressort.position.getY());
+
+// Empêcher le personnage de descendre plus bas que le bas du ressort
+            double posMaxY = ressort.position.getY() + ressort.taille.getY() - taille.getY();
+            position = new Point2D(position.getX(), Math.min(position.getY(), posMaxY));
+
             ressort.setCompression(compressionActuelle);
             forceHooke = -ressort.constanteDeRappel * compressionActuelle;
 
             double coefficientAmortisement = ressort.ConstanteCoefficientDAmortissement * (2 * Math.pow(masse * ressort.constanteDeRappel, 0.5));
             forceAmortisement = -coefficientAmortisement * velocite.getY();
 
+            forceTotal = forceHooke + forceAmortisement + (masse * planet.gravite);
+            setAcceleration(new Point2D(acceleration.getX(), forceTotal / masse));
 
-            System.out.println(    " | compressionActuelle: " + compressionActuelle ); // ajoute ça
+//            System.out.println(" | compressionActuelle: " + compressionActuelle); // ajoute ça
         } else {
             forceHooke = 0;
             forceAmortisement = 0;
             ressort.setCompression(0);
+            compressionActuelle = 0;
+            forceTotal = masse * planet.gravite;
+            setAcceleration(new Point2D(acceleration.getX(), planet.gravite));
 
         }
 
-        forceTotal = forceHooke + forceAmortisement + (masse * planet.gravite);
+//        forceTotal = forceHooke + forceAmortisement + (masse * planet.gravite);
 
 //Accélération
-        setAcceleration(new Point2D(acceleration.getX(), forceTotal / masse));
+//        setAcceleration(new Point2D(acceleration.getX(), forceTotal / masse));
 
 //La vitesse et la position
         updatePhysique(deltaTemps);
@@ -90,7 +102,7 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
             toucheLeTrampoline = true;
         }
 
-//Mouvement personnage
+//Mouvement personnage, le bouger avec une souris
         boolean click = Input.isMousePressed(MouseButton.PRIMARY);
         double positionX = Input.getMouseX();
         double positionY = Input.getMouseY();
@@ -115,15 +127,20 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
             toucheLeTrampoline = false;
         }
 
-        position = new Point2D(position.getX(), Math.clamp(position.getY(), -3000, HEIGHT - taille.getY()));
-
-        System.out.println(
-                "encollision: " + encollision +
-                        " | velociteY: " + velocite.getY() +
-                        " | forceHooke: " + forceHooke +
-                        " | forceAmortisement: " + forceAmortisement +
-                        " | compression: " + ressort.compression
-        );
+//        position = new Point2D(position.getX(), Math.clamp(position.getY(), -3000, HEIGHT - taille.getY()));
+        if (!encollision) {
+            position = new Point2D(position.getX(), Math.clamp(position.getY(), -3000, HEIGHT - taille.getY()));
+        }
+//        System.out.println(
+//                "encollision: " + encollision +
+//                        " | velociteY: " + velocite.getY() +
+//                        " | forceHooke: " + forceHooke +
+//                        " | forceAmortisement: " + forceAmortisement +
+//                        " | compression: " + ressort.compression
+//        );
+//        System.out.println("encollision: " + encollision + " | getBas: " + getBas() + " | ressort haut: " + ressort.position.getY());
+//        System.out.println("loi de Hooke: " + forceHooke);
+        System.out.println("taille ressort: " + ressort.taille.getY());
     }
 
 
