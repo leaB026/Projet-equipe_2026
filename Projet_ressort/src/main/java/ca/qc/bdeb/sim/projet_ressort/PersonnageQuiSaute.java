@@ -123,7 +123,7 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
 
         if (!click && estEnTrainDeTirerPersonnage) {
             estEnTrainDeTirerPersonnage = false;
-            velocite = new Point2D(velocite.getX(), -500);
+            velocite = new Point2D(velocite.getX(), 0);
             toucheLeTrampoline = false;
         }
 
