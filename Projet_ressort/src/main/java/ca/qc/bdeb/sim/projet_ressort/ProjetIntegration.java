@@ -21,10 +21,12 @@ import java.util.ArrayList;
 
 public class ProjetIntegration extends Application {
 
+
     public static final double WIDTH = 900, HEIGHT = 580;
 
     private Simulation simulation;
     protected boolean pageIntro = true;
+    private ChoiceBox<String> menuPlanetes;
 
 
     @Override
@@ -44,6 +46,7 @@ public class ProjetIntegration extends Application {
         Simulation simulation = new Simulation();
 
         var timer = new AnimationTimer() {
+
             long dernierTemps = System.nanoTime();
 
             @Override
@@ -56,21 +59,26 @@ public class ProjetIntegration extends Application {
 
                 simulation.update(deltaTemps, pageIntro);
                 simulation.draw(context, simulation, pageIntro);
-
+                menuPlanetes.setVisible(!pageIntro);
 
             }
+
         };
         timer.start();
 
         // MENU DEROULANT PLANEET
-        ChoiceBox<String> menuPlanetes = new ChoiceBox<>();
+
+        menuPlanetes = new ChoiceBox<>();
 
         menuPlanetes.getItems().addAll("Terre", "Lune", "Mars");
-        menuPlanetes.setValue("Terre");
+        menuPlanetes.setValue("Planètes");
         menuPlanetes.setLayoutX(WIDTH - 160);
         menuPlanetes.setLayoutY(20);
         menuPlanetes.setPrefWidth(140);
         root.getChildren().add(menuPlanetes);
+
+            menuPlanetes.setVisible(false);
+
 
         menuPlanetes.setOnAction(e -> {
             String choix = menuPlanetes.getValue();
@@ -87,6 +95,9 @@ public class ProjetIntegration extends Application {
         stage.setTitle("Boing Boing 3000");
         stage.show();
     }
+
+
+
 
     public void conditionInput(KeyCode e) {
         if (e == KeyCode.ESCAPE) {
