@@ -152,7 +152,6 @@ public class ProjetIntegration extends Application {
         // MENU DEROULANT PLANEET
 
         menuPlanetes = new ChoiceBox<>();
-
         menuPlanetes.getItems().addAll("Terre", "Lune", "Mars");
         menuPlanetes.setValue("Planètes");
         menuPlanetes.setLayoutX(WIDTH - 160);
@@ -213,22 +212,13 @@ this.simulation = simulation;
         show.setOnAction((e) -> {
 
             graphique.setX(-5);
-
             graphique.show();
-
-
         });
         graphique.setOnCloseRequest((e) -> {
-
             graphique.hide();
-
 
         });
     }
-
-
-
-
     public void conditionInput(KeyCode e) {
         if (e == KeyCode.ESCAPE) {
             //FermeJavaFX
@@ -239,11 +229,8 @@ this.simulation = simulation;
         } else if (e == KeyCode.RIGHT) {
             simulation.personnageSuivant();
         }
-
         Input.setKeyPressed(e, true);
-
     }
-
     public void conditionInput2(MouseEvent e) {
 
         Input.setMousePressed(e.getButton(), true);
@@ -252,26 +239,29 @@ this.simulation = simulation;
         if (e.getButton() == MouseButton.PRIMARY) {
             double positionX = e.getX();
             double positionY = e.getY();
+
             if (pageIntro) {
                 if (positionY > 320 && positionY < 400) {
-
                     if (positionX > 200 && positionX < 230) {
                         simulation.personnagePrecedent();
                     } else if (positionX > 650 && positionX < 680) {
                         simulation.personnageSuivant();
                     }
                 }
-
                 if (positionY > 520 && positionY < 550) {
                     if (positionX > 410 && positionX < 490) {
                         pageIntro = false;
                     }
                 }
-
+            }else if (!pageIntro){
+                if (positionY > HEIGHT-50 && positionY < HEIGHT) {
+                    if (positionX > 10 && positionX < 60) {
+                        pageIntro = true;
+                        simulation.creerPersonnageFinal =false;
+                    }
+                }
             }
         }
-
-
     }
 }
 

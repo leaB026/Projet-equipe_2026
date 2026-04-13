@@ -23,7 +23,7 @@ public class Simulation {
     double chronometre;
     FlecheChoixPersonnage flecheG = new FlecheChoixPersonnage(new Point2D(200, 320), new Point2D(30, 80), new Image("flecheGauche.png"));
     FlecheChoixPersonnage flecheR = new FlecheChoixPersonnage(new Point2D(650, 320), new Point2D(30, 80), new Image("flecheDroite.png"));
-
+    GoBack back = new GoBack(new Point2D(10, HEIGHT-50), new Point2D(50, 50), new Image("Fleche.Back.png"));
     PersonnageQuiSaute personnageFinal;
     Ressort ressort;
     Planet planet;
@@ -68,6 +68,7 @@ public class Simulation {
             }
             personnageFinal.draw(context, simulation);
             ressort.draw(context, simulation);
+            back.draw(context, simulation);
         }
 
 
