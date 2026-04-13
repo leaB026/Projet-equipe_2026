@@ -2,6 +2,7 @@ package ca.qc.bdeb.sim.projet_ressort;
 
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class Simulation {
     Planet planet;
     boolean creerPersonnage = false;
     ConfirmationChoixPersonnage confirmation = new ConfirmationChoixPersonnage(new Point2D(410, 520), new Point2D(80, 30));
+    EnergyChart bc = new EnergyChart("Énergie potentielle gravitationnelle", "Énergie potentielle élastique");
+    Slider slider = new Slider(0, 150, 5);
 
     public void update(double deltaTemps, boolean pageIntro) {
         if (!creationPersonnage) {
@@ -45,6 +48,8 @@ public class Simulation {
             }
 
             personnageFinal.updateCollisionRessort(deltaTemps, simulation, ressort.estEnCollision(personnageFinal), ressort,planet);
+            bc.update(deltaTemps, personnageFinal, slider, planet);
+
 
         }
 
@@ -102,4 +107,7 @@ public class Simulation {
             case "Mars"  -> planet = new Planet(3.72, new Image("bgMars.jpeg"));
         } }
 
+    public EnergyChart getBc() {
+        return bc;
+    }
 }

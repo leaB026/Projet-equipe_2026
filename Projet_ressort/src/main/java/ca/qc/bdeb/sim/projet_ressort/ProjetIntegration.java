@@ -3,17 +3,22 @@ package ca.qc.bdeb.sim.projet_ressort;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -38,6 +43,40 @@ public class ProjetIntegration extends Application {
         var canvas = new Canvas(WIDTH, HEIGHT);
         root.getChildren().add(canvas);
         var context = canvas.getGraphicsContext2D();
+
+        Pane rootGraphique = new Pane();
+        VBox partieGraphique = new VBox(45);
+        Stage graphique = new Stage();
+        Scene sceneGraphique = new Scene(rootGraphique, 500, 500);
+
+
+
+        Image iconeGraphique = new Image("/iconBARCHART.png");
+        ImageView imgViewGrah = new ImageView(iconeGraphique);
+        imgViewGrah.setFitWidth(30);
+        imgViewGrah.setFitHeight(30);
+
+        Button show = new Button();
+        Text k = new Text("Constante de rappel");
+        k.setTextAlignment(TextAlignment.CENTER);
+        k.setStyle("-fx-font-size: 12px");
+
+        Text jouerK = new Text("Jouez avec la constante de rappel! ");
+        jouerK.setTextAlignment(TextAlignment.CENTER);
+        jouerK.setStyle("-fx-font-size: 12px");
+
+        show.setGraphic(imgViewGrah);
+        show.setStyle("-fx-background-color: transparent;");
+
+        //CLAUDE AI
+        graphique.addEventFilter(KeyEvent.ANY, e -> {
+            if(e.getEventType() == KeyEvent.KEY_PRESSED) {
+                scene.getOnKeyPressed().handle(e);
+            }else if(e.getEventType() == KeyEvent.KEY_RELEASED){
+                scene.getOnKeyReleased().handle(e);
+            }
+            e.consume();
+        });
 
         Text ressort = new Text("Les ressorts: ");
 
@@ -66,6 +105,29 @@ public class ProjetIntegration extends Application {
         };
         timer.start();
 
+        simulation.getBc().draw();
+
+        CornerRadii radii = new CornerRadii(10);
+        Insets insets = new Insets(10);
+        BackgroundFill background_fill = new BackgroundFill(Color.LIGHTGRAY,  radii, Insets.EMPTY);
+
+
+        partieGraphique.setPrefWidth(500);
+        partieGraphique.setPrefHeight(500);
+
+        Background background = new Background(background_fill);
+
+
+        partieGraphique.setBackground(background);
+
+        partieGraphique.getChildren().add(simulation.bc.getBc());
+
+        partieGraphique.getChildren().add(k);
+
+        partieGraphique.getChildren().add(jouerK);
+
+        partieGraphique.getChildren().add(simulation.slider);
+
         // MENU DEROULANT PLANEET
 
         menuPlanetes = new ChoiceBox<>();
@@ -78,7 +140,7 @@ public class ProjetIntegration extends Application {
         root.getChildren().add(menuPlanetes);
 
             menuPlanetes.setVisible(false);
-
+        rootGraphique.getChildren().addAll(partieGraphique);
 
         menuPlanetes.setOnAction(e -> {
             String choix = menuPlanetes.getValue();
@@ -90,10 +152,25 @@ public class ProjetIntegration extends Application {
         scene.setOnMouseReleased(e ->Input.setMousePressed(e.getButton(), false));
         scene.setOnMouseDragged((e) ->Input.setMousePosition(e.getX(), e.getY()));
 
-
+        root.getChildren().add(show);
         stage.setScene(scene);
         stage.setTitle("Boing Boing 3000");
+        graphique.setScene(sceneGraphique);
         stage.show();
+        show.setOnAction((e) -> {
+
+            graphique.setX(-5);
+
+            graphique.show();
+
+
+        });
+        graphique.setOnCloseRequest((e) -> {
+
+            graphique.hide();
+
+
+        });
     }
 
 
