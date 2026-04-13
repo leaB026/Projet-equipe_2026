@@ -11,12 +11,17 @@ import java.util.ArrayList;
 public class ChoixPersonnage extends ObjetsStatique {
     Simulation simulation;
     Image image;
+    double masse;
+
+    String nom;
 
     ArrayList<Simulation> personnage = new ArrayList<>();
 
-    public ChoixPersonnage(Point2D position, Point2D taille, Image image) {
+    public ChoixPersonnage(Point2D position, Point2D taille, Image image, double masse, String nom) {
         super(position, taille);
         this.image = image;
+        this.masse = masse;
+        this.nom = nom;
     }
 
     @Override

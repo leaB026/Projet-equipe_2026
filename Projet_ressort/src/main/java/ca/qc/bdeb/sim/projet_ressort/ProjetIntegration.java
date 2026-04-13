@@ -15,10 +15,21 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+<<<<<<< Updated upstream
 import javafx.scene.layout.*;
+=======
+import javafx.scene.layout.Background;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+>>>>>>> Stashed changes
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+<<<<<<< Updated upstream
 import javafx.scene.text.TextAlignment;
+=======
+import javafx.stage.Popup;
+>>>>>>> Stashed changes
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -36,6 +47,7 @@ public class ProjetIntegration extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+       Simulation simulation = new Simulation();
 
         var root = new Pane();
         root.setBackground(Background.fill(Color.WHITE));
@@ -44,6 +56,7 @@ public class ProjetIntegration extends Application {
         root.getChildren().add(canvas);
         var context = canvas.getGraphicsContext2D();
 
+<<<<<<< Updated upstream
         Pane rootGraphique = new Pane();
         VBox partieGraphique = new VBox(45);
         Stage graphique = new Stage();
@@ -79,10 +92,27 @@ public class ProjetIntegration extends Application {
         });
 
         Text ressort = new Text("Les ressorts: ");
+=======
+        var popUp = new Popup();
+        var vbox = new VBox();
+
+        vbox.setSpacing(5);
+        vbox.setPadding(new Insets(20));
+        vbox.setBackground(Background.fill(Color.BISQUE));
+
+
+        popUp.getContent().add(vbox);
+        Text titre = new Text(simulation.personnageChoisie.nom);
+        titre.setFont(Font.font(20));
+        titre.isUnderline();
+        Text information = new Text("Poid: "+ simulation.personnageChoisie.masse + " kg");
+        information.setFont(Font.font(10));
+        vbox.getChildren().addAll(titre, information);
+>>>>>>> Stashed changes
 
 //        Button bouton = new Button();
 
-        Simulation simulation = new Simulation();
+
 
         var timer = new AnimationTimer() {
 
@@ -146,13 +176,48 @@ public class ProjetIntegration extends Application {
             String choix = menuPlanetes.getValue();
             simulation.changerPlanete(choix);
         });
-        this.simulation = simulation;
+this.simulation = simulation;
         scene.setOnKeyPressed((e) -> conditionInput(e.getCode()));
         scene.setOnMousePressed((e) -> conditionInput2(e));
-        scene.setOnMouseReleased(e ->Input.setMousePressed(e.getButton(), false));
-        scene.setOnMouseDragged((e) ->Input.setMousePosition(e.getX(), e.getY()));
+        scene.setOnMouseReleased(e -> Input.setMousePressed(e.getButton(), false));
+        scene.setOnMouseDragged((e) -> Input.setMousePosition(e.getX(), e.getY()));
 
+<<<<<<< Updated upstream
         root.getChildren().add(show);
+=======
+
+        canvas.setOnMouseMoved((e) -> {
+            if (pageIntro) {  // marche seulement quand on est sur la page d'intro
+                double positionPersonnageX = simulation.personnageChoisie.position.getX();
+                double positionPersonnageY = simulation.personnageChoisie.position.getY();
+                double taillePersonnageX = simulation.personnageChoisie.taille.getX();
+                double taillePersonnageY = simulation.personnageChoisie.taille.getY();
+
+                double screenX = canvas.localToScreen(
+                        simulation.personnageChoisie.getPosition().getX() + (simulation.personnageChoisie.getTaille().getX()) + 70,
+                        simulation.personnageChoisie.getPosition().getY()
+                ).getX();
+
+                double screenY = canvas.localToScreen(
+                        simulation.personnageChoisie.getPosition().getX(),
+                        simulation.personnageChoisie.getPosition().getY() + (simulation.personnageChoisie.getTaille().getY() / 2) - 50 // center vertically on character
+                ).getY();
+
+                if (e.getX() >= positionPersonnageX && e.getX() <= positionPersonnageX + taillePersonnageX && e.getY() >= positionPersonnageY && e.getY() <= positionPersonnageY + taillePersonnageY) {
+               titre.setText(simulation.personnageChoisie.nom);
+               information.setText("Poid: "+ simulation.personnageChoisie.masse + " kg");
+
+                    popUp.show(stage, screenX, screenY);
+                    Platform.runLater(() -> canvas.requestFocus());
+                } else {
+                    popUp.hide();
+                }
+            } else {
+                popUp.hide();
+            }
+        });
+
+>>>>>>> Stashed changes
         stage.setScene(scene);
         stage.setTitle("Boing Boing 3000");
         graphique.setScene(sceneGraphique);
@@ -199,22 +264,23 @@ public class ProjetIntegration extends Application {
         if (e.getButton() == MouseButton.PRIMARY) {
             double positionX = e.getX();
             double positionY = e.getY();
+            if (pageIntro) {
+                if (positionY > 320 && positionY < 400) {
 
-            if (positionY > 320 && positionY < 400) {
-
-                if (positionX > 200 && positionX < 230) {
-                    simulation.personnagePrecedent();
-                }else if (positionX > 650 && positionX < 680){
-                    simulation.personnageSuivant();
+                    if (positionX > 200 && positionX < 230) {
+                        simulation.personnagePrecedent();
+                    } else if (positionX > 650 && positionX < 680) {
+                        simulation.personnageSuivant();
+                    }
                 }
-            }
 
-            if (positionY > 520 && positionY < 550){
-                if(positionX >410 && positionX < 490){
-                    pageIntro = false;
+                if (positionY > 520 && positionY < 550) {
+                    if (positionX > 410 && positionX < 490) {
+                        pageIntro = false;
+                    }
                 }
-            }
 
+            }
         }
 
 

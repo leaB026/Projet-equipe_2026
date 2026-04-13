@@ -3,17 +3,13 @@ package ca.qc.bdeb.sim.projet_ressort;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
-
-import java.awt.event.MouseEvent;
-import java.util.AbstractMap;
 
 import static ca.qc.bdeb.sim.projet_ressort.ProjetIntegration.HEIGHT;
 
 public class PersonnageQuiSaute extends ObjetDuJeu {
 
-    Image nom;
+    Image image;
     boolean toucheLeTrampoline;
     boolean estEnTrainDeTirerPersonnage;
     double masse;
@@ -22,7 +18,7 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
 
     public PersonnageQuiSaute(Point2D position, Point2D velocite, Point2D taille, Image nom, double masse) {
         super(position, velocite, taille);
-        this.nom = nom;
+        this.image = nom;
         this.toucheLeTrampoline = true;
         this.masse = masse;
     }
@@ -117,7 +113,7 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
     @Override
     protected void draw(GraphicsContext contexte, Simulation simulation) {
         super.draw(contexte, simulation);
-        contexte.drawImage(nom, position.getX(), position.getY(), taille.getX(), taille.getY());
+        contexte.drawImage(image, position.getX(), position.getY(), taille.getX(), taille.getY());
 
     }
 }
