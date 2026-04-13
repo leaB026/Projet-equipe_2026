@@ -149,7 +149,7 @@ public class ProjetIntegration extends Application {
 
         partieGraphique.getChildren().add(simulation.slider);
 
-        // MENU DEROULANT PLANEET
+        // MENU DEROULANT PLANET
 
         menuPlanetes = new ChoiceBox<>();
         menuPlanetes.getItems().addAll("Terre", "Lune", "Mars");
