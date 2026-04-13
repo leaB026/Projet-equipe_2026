@@ -15,21 +15,15 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-<<<<<<< Updated upstream
 import javafx.scene.layout.*;
-=======
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
->>>>>>> Stashed changes
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-<<<<<<< Updated upstream
 import javafx.scene.text.TextAlignment;
-=======
 import javafx.stage.Popup;
->>>>>>> Stashed changes
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -56,7 +50,6 @@ public class ProjetIntegration extends Application {
         root.getChildren().add(canvas);
         var context = canvas.getGraphicsContext2D();
 
-<<<<<<< Updated upstream
         Pane rootGraphique = new Pane();
         VBox partieGraphique = new VBox(45);
         Stage graphique = new Stage();
@@ -91,8 +84,7 @@ public class ProjetIntegration extends Application {
             e.consume();
         });
 
-        Text ressort = new Text("Les ressorts: ");
-=======
+
         var popUp = new Popup();
         var vbox = new VBox();
 
@@ -108,7 +100,6 @@ public class ProjetIntegration extends Application {
         Text information = new Text("Poid: "+ simulation.personnageChoisie.masse + " kg");
         information.setFont(Font.font(10));
         vbox.getChildren().addAll(titre, information);
->>>>>>> Stashed changes
 
 //        Button bouton = new Button();
 
@@ -182,9 +173,7 @@ this.simulation = simulation;
         scene.setOnMouseReleased(e -> Input.setMousePressed(e.getButton(), false));
         scene.setOnMouseDragged((e) -> Input.setMousePosition(e.getX(), e.getY()));
 
-<<<<<<< Updated upstream
         root.getChildren().add(show);
-=======
 
         canvas.setOnMouseMoved((e) -> {
             if (pageIntro) {  // marche seulement quand on est sur la page d'intro
@@ -217,7 +206,6 @@ this.simulation = simulation;
             }
         });
 
->>>>>>> Stashed changes
         stage.setScene(scene);
         stage.setTitle("Boing Boing 3000");
         graphique.setScene(sceneGraphique);
