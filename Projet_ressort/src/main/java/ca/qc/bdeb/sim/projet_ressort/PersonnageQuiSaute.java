@@ -40,7 +40,10 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
         double forceTotal;
         double forceHooke;
         double forceAmortisement;
-
+/*
+       Au lieu de faire la différence entre le personnage et le ressort,
+         on donne un maximum à la compression que le personnage peut effectuer sur le ressort
+ */
         if (encollision) {
             double compressionActuelle = Math.max(0, getBas() - ressort.position.getY());
 
@@ -88,7 +91,7 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
 
         toucheLeSol = ((position.getY() + taille.getY()) == HEIGHT);
 
-        if (click && selectionner /*&& (toucheLeTrampoline || toucheLeSol)*/) {
+        if (click && selectionner) {
             estEnTrainDeTirerPersonnage = true;
         }
 
@@ -100,7 +103,8 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
 
         if (!click && estEnTrainDeTirerPersonnage) {
             estEnTrainDeTirerPersonnage = false;
-            velocite = new Point2D(velocite.getX(), 0);
+            velocite = new Point2D(velocite.getX(), -20);
+            //Donner une petite vélocité pour donner de la vie au personnage
             toucheLeTrampoline = false;
         }
 
