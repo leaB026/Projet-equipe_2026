@@ -17,7 +17,6 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
     boolean toucheLeTrampoline;
     boolean estEnTrainDeTirerPersonnage;
     double masse;
-    double coefficientAmortisement;
     double compressionActuelle;
     boolean toucheLeSol;
 
@@ -26,7 +25,6 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
         this.nom = nom;
         this.toucheLeTrampoline = true;
         this.masse = masse;
-//        this.coefficientAmortisement = ressort.ConstanteCoefficientDAmortissement * (2 * Math.pow(masse * ressort.constanteDeRappel, 0.5));
     }
 
 
@@ -44,9 +42,6 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
         double forceAmortisement;
 
         if (encollision) {
-//            double compressionActuelle = getBas() - ressort.getHaut();
-//            compressionActuelle = (ressort.position.getY() + ressort.taille.getY()) + getBas();
-//            compressionActuelle = getBas() - (ressort.position.getY() + ressort.taille.getY());
             double compressionActuelle = Math.max(0, getBas() - ressort.position.getY());
 
 // Empêcher le personnage de descendre plus bas que le bas du ressort
@@ -62,7 +57,6 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
             forceTotal = forceHooke + forceAmortisement + (masse * planet.gravite);
             setAcceleration(new Point2D(acceleration.getX(), forceTotal / masse));
 
-//            System.out.println(" | compressionActuelle: " + compressionActuelle); // ajoute ça
         } else {
             forceHooke = 0;
             forceAmortisement = 0;
@@ -73,27 +67,10 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
 
         }
 
-//        forceTotal = forceHooke + forceAmortisement + (masse * planet.gravite);
-
-//Accélération
-//        setAcceleration(new Point2D(acceleration.getX(), forceTotal / masse));
 
 //La vitesse et la position
         updatePhysique(deltaTemps);
 
-        // Arrêter le rebond quand la vitesse est assez petite
-//        if (Math.abs(velocite.getY()) < 50 && encollision) {
-//            velocite = new Point2D(velocite.getX(), 0);
-//            position = new Point2D(position.getX(), ressort.position.getY() - taille.getY());
-//            ressort.setCompression(0);
-//
-//            velocite = new Point2D(velocite.getX(), 0);
-//            position = new Point2D(position.getX(), ressort.position.getY() - taille.getY());
-//            ressort.setCompression(0);
-//            setAcceleration(new Point2D(acceleration.getX(), 0)); // ← ajoute ça
-//            return; // ← et ça, pour stopper toute la mise à jour
-//
-//        }
 
 //Collision et effet sur le ressort
         if (!encollision && getBas() < ressort.getHaut()) {
@@ -127,20 +104,9 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
             toucheLeTrampoline = false;
         }
 
-//        position = new Point2D(position.getX(), Math.clamp(position.getY(), -3000, HEIGHT - taille.getY()));
         if (!encollision) {
             position = new Point2D(position.getX(), Math.clamp(position.getY(), -3000, HEIGHT - taille.getY()));
         }
-//        System.out.println(
-//                "encollision: " + encollision +
-//                        " | velociteY: " + velocite.getY() +
-//                        " | forceHooke: " + forceHooke +
-//                        " | forceAmortisement: " + forceAmortisement +
-//                        " | compression: " + ressort.compression
-//        );
-//        System.out.println("encollision: " + encollision + " | getBas: " + getBas() + " | ressort haut: " + ressort.position.getY());
-//        System.out.println("loi de Hooke: " + forceHooke);
-        System.out.println("taille ressort: " + ressort.taille.getY());
     }
 
 
