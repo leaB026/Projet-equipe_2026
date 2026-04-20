@@ -3,6 +3,7 @@ module ca.qc.bdeb.sim.projet_ressort {
     requires javafx.fxml;
     requires javafx.graphics;
     requires java.desktop;
+    requires javafx.media;
 
 
     opens ca.qc.bdeb.sim.projet_ressort to javafx.fxml;

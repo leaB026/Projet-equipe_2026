@@ -31,6 +31,7 @@ public class Simulation {
     ConfirmationChoixPersonnage confirmation = new ConfirmationChoixPersonnage(new Point2D(410, 520), new Point2D(80, 30));
     EnergyChart bc = new EnergyChart("Énergie potentielle gravitationnelle", "Énergie potentielle élastique");
     Slider slider = new Slider(0, 150, 5);
+    String planeteChoisie= "Terre";
 
     public void update(double deltaTemps, boolean pageIntro) {
         if (!creationPersonnage) {
@@ -42,7 +43,7 @@ public class Simulation {
         if (!pageIntro) {
             if (!creerPersonnageFinal) {
                 ressort = new Ressort(new Point2D(WIDTH * 0.5 - 201 / 2, HEIGHT - 64), new Point2D(201, 64), 3000, 0.15);
-                planet = new Planet(9.81, new Image("terre.jpg"));
+              changerPlanete(planeteChoisie);
                 personnageFinal = new PersonnageQuiSaute(new Point2D(WIDTH * 0.25 - personnageChoisie.taille.getX() * 0.25, HEIGHT*0.5), new Point2D(0, 0), new Point2D(personnageChoisie.getTaille().getX() * 0.5, personnageChoisie.getTaille().getY() * 0.5), personnageChoisie.image, personnageChoisie.masse);
                 creerPersonnageFinal = true;
             }
@@ -99,12 +100,16 @@ public class Simulation {
         }
     }
     public void changerPlanete(String nomPlanete) {
-        if (planet == null) return;
+//        if (planet == null) return;
+//
+        planeteChoisie = nomPlanete;
         switch (nomPlanete) {
             case "Terre" -> planet = new Planet(9.81, new Image("terre.jpg"));
             case "Lune"  -> planet = new Planet(1.62, new Image("bgLune.jpeg"));
             case "Mars"  -> planet = new Planet(3.72, new Image("bgMars.jpeg"));
-        } }
+        }
+    }
+
 
     public EnergyChart getBc() {
         return bc;
