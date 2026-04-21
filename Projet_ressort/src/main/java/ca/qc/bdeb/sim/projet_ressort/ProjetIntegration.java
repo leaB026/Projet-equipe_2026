@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 import org.controlsfx.control.ToggleSwitch;
 
 public class ProjetIntegration extends Application {
@@ -43,7 +44,8 @@ public class ProjetIntegration extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-       Simulation simulation = new Simulation();
+
+        Simulation simulation = new Simulation();
 
         var root = new Pane();
         root.setBackground(Background.fill(Color.WHITE));
@@ -56,7 +58,6 @@ public class ProjetIntegration extends Application {
         VBox partieGraphique = new VBox(45);
         Stage graphique = new Stage();
         Scene sceneGraphique = new Scene(rootGraphique, 500, 500);
-
 
 
         Image iconeGraphique = new Image("/iconBARCHART.png");
@@ -78,9 +79,9 @@ public class ProjetIntegration extends Application {
 
         //CLAUDE AI
         graphique.addEventFilter(KeyEvent.ANY, e -> {
-            if(e.getEventType() == KeyEvent.KEY_PRESSED) {
+            if (e.getEventType() == KeyEvent.KEY_PRESSED) {
                 scene.getOnKeyPressed().handle(e);
-            }else if(e.getEventType() == KeyEvent.KEY_RELEASED){
+            } else if (e.getEventType() == KeyEvent.KEY_RELEASED) {
                 scene.getOnKeyReleased().handle(e);
             }
             e.consume();
@@ -94,12 +95,11 @@ public class ProjetIntegration extends Application {
         vbox.setPadding(new Insets(20));
         vbox.setBackground(Background.fill(Color.BISQUE));
 
-
         popUp.getContent().add(vbox);
         Text titre = new Text(simulation.personnageChoisie.nom);
         titre.setFont(Font.font(20));
         titre.isUnderline();
-        Text information = new Text("Poid: "+ simulation.personnageChoisie.masse + " kg");
+        Text information = new Text("Poid: " + simulation.personnageChoisie.masse + " kg");
         information.setFont(Font.font(10));
         vbox.getChildren().addAll(titre, information);
 
@@ -129,7 +129,7 @@ public class ProjetIntegration extends Application {
 
         CornerRadii radii = new CornerRadii(10);
         Insets insets = new Insets(10);
-        BackgroundFill background_fill = new BackgroundFill(Color.LIGHTGRAY,  radii, Insets.EMPTY);
+        BackgroundFill background_fill = new BackgroundFill(Color.LIGHTGRAY, radii, Insets.EMPTY);
 
 
         partieGraphique.setPrefWidth(500);
@@ -158,14 +158,16 @@ public class ProjetIntegration extends Application {
         menuPlanetes.setPrefWidth(140);
         root.getChildren().add(menuPlanetes);
 
-            menuPlanetes.setVisible(false);
+        menuPlanetes.setVisible(false);
         rootGraphique.getChildren().addAll(partieGraphique);
 
         menuPlanetes.setOnAction(e -> {
             String choix = menuPlanetes.getValue();
             simulation.changerPlanete(choix);
         });
-this.simulation = simulation;
+
+        this.simulation = simulation;
+
         scene.setOnKeyPressed((e) -> conditionInput(e.getCode()));
         scene.setOnMousePressed((e) -> conditionInput2(e));
         scene.setOnMouseReleased(e -> Input.setMousePressed(e.getButton(), false));
@@ -202,8 +204,8 @@ this.simulation = simulation;
                 ).getY();
 
                 if (e.getX() >= positionPersonnageX && e.getX() <= positionPersonnageX + taillePersonnageX && e.getY() >= positionPersonnageY && e.getY() <= positionPersonnageY + taillePersonnageY) {
-               titre.setText(simulation.personnageChoisie.nom);
-               information.setText("Poid: "+ simulation.personnageChoisie.masse + " kg");
+                    titre.setText(simulation.personnageChoisie.nom);
+                    information.setText("Poid: " + simulation.personnageChoisie.masse + " kg");
 
                     popUp.show(stage, screenX, screenY);
                     Platform.runLater(() -> canvas.requestFocus());
@@ -229,6 +231,7 @@ this.simulation = simulation;
 
         });
     }
+
     public void conditionInput(KeyCode e) {
         if (e == KeyCode.ESCAPE) {
             //FermeJavaFX
@@ -241,6 +244,7 @@ this.simulation = simulation;
         }
         Input.setKeyPressed(e, true);
     }
+
     public void conditionInput2(MouseEvent e) {
 
         Input.setMousePressed(e.getButton(), true);
@@ -263,11 +267,11 @@ this.simulation = simulation;
                         pageIntro = false;
                     }
                 }
-            }else if (!pageIntro){
-                if (positionY > HEIGHT-50 && positionY < HEIGHT) {
+            } else if (!pageIntro) {
+                if (positionY > HEIGHT - 50 && positionY < HEIGHT) {
                     if (positionX > 10 && positionX < 60) {
                         pageIntro = true;
-                        simulation.creerPersonnageFinal =false;
+                        simulation.creerPersonnageFinal = false;
                     }
                 }
             }

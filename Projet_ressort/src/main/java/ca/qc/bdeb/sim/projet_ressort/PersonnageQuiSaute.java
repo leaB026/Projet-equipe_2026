@@ -42,7 +42,7 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
          on donne un maximum à la compression que le personnage peut effectuer sur le ressort
  */
         if (encollision) {
-            double compressionActuelle = Math.max(0, getBas() - ressort.position.getY());
+            compressionActuelle = Math.max(0, getBas() - ressort.position.getY());
 
 // Empêcher le personnage de descendre plus bas que le bas du ressort
             double posMaxY = ressort.position.getY() + ressort.taille.getY() - taille.getY();
@@ -70,9 +70,8 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
             ressort.setCompression(0);
             compressionActuelle = 0;
             forceTotal = masse * planet.gravite;
-            setAcceleration(new Point2D(acceleration.getX(), planet.gravite));
-
         }
+//Adapter l'accélération
         setAcceleration(new Point2D(acceleration.getX(), forceTotal / masse));
 
 //La vitesse et la position
@@ -114,6 +113,10 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
 
         if (!encollision) {
             position = new Point2D(position.getX(), Math.clamp(position.getY(), -3000, HEIGHT - taille.getY()));
+        }
+
+        if (encollision) {
+            System.out.println("EN COLLISION | getBas(): " + getBas() + " | ressort.position.getY(): " + ressort.position.getY() + " | compression: " + compressionActuelle);
         }
     }
 
