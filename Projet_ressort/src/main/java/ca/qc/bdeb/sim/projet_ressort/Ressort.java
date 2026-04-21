@@ -39,18 +39,35 @@ public class Ressort extends ObjetsStatique {
     }
 
     public boolean estEnCollision(PersonnageQuiSaute personnage) {
-        // Rectangle de la boîte
         double x1 = this.position.getX();
         double y1 = this.position.getY();
         double w1 = this.taille.getX();
-        double h1 = this.taille.getY();
 
-        // Rectangle du journal
         double x2 = personnage.position.getX();
-        double y2 = personnage.position.getY();
         double w2 = personnage.getTaille().getX();
-        double h2 = personnage.getTaille().getY();
 
-        return x1 < x2 + w2 && x1 + w1 > x2 && y1 < y2 + h2 && y1 + h1 > y2;
+        // Collision horizontale
+        boolean collisionX = x1 < x2 + w2 && x1 + w1 > x2;
+
+        // Le bas du personnage a atteint le haut du ressort
+        boolean collisionY = personnage.getBas() >= y1;
+
+        return collisionX && collisionY;
     }
+
+//    public boolean estEnCollision(PersonnageQuiSaute personnage) {
+//        // Rectangle de la boîte
+//        double x1 = this.position.getX();
+//        double y1 = this.position.getY();
+//        double w1 = this.taille.getX();
+//        double h1 = this.taille.getY();
+//
+//        // Rectangle du journal
+//        double x2 = personnage.position.getX();
+//        double y2 = personnage.position.getY();
+//        double w2 = personnage.getTaille().getX();
+//        double h2 = personnage.getTaille().getY();
+//
+//        return x1 < x2 + w2 && x1 + w1 > x2 && y1 < y2 + h2 && y1 + h1 > y2;
+//    }
 }

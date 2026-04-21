@@ -106,7 +106,7 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
 
         if (!click && estEnTrainDeTirerPersonnage) {
             estEnTrainDeTirerPersonnage = false;
-            velocite = new Point2D(velocite.getX(), -20);
+            velocite = new Point2D(velocite.getX(), -100);
             //Donner une petite vélocité pour donner de la vie au personnage
             toucheLeTrampoline = false;
         }
@@ -115,9 +115,6 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
             position = new Point2D(position.getX(), Math.clamp(position.getY(), -3000, HEIGHT - taille.getY()));
         }
 
-        if (encollision) {
-            System.out.println("EN COLLISION | getBas(): " + getBas() + " | ressort.position.getY(): " + ressort.position.getY() + " | compression: " + compressionActuelle);
-        }
     }
 
 
