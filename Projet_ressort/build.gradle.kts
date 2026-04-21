@@ -36,6 +36,8 @@ javafx {
 }
 
 dependencies {
+    //donner par Claude
+    implementation("org.controlsfx:controlsfx:11.2.1")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }

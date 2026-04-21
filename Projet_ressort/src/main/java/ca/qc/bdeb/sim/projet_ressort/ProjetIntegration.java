@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -18,7 +19,6 @@ import javafx.scene.layout.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -27,14 +27,10 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import javafx.scene.media.Media;
-
+import java.util.ArrayList;
+import org.controlsfx.control.ToggleSwitch;
 
 public class ProjetIntegration extends Application {
-
-
 
 
     public static final double WIDTH = 900, HEIGHT = 580;
@@ -42,13 +38,12 @@ public class ProjetIntegration extends Application {
     private Simulation simulation;
     protected boolean pageIntro = true;
     private ChoiceBox<String> menuPlanetes;
+    ToggleSwitch forceAmortissement = new ToggleSwitch("Force d'amortissement");
 
 
     @Override
     public void start(Stage stage) throws IOException {
-        music();
-
-        Simulation simulation = new Simulation();
+       Simulation simulation = new Simulation();
 
         var root = new Pane();
         root.setBackground(Background.fill(Color.WHITE));
@@ -62,28 +57,6 @@ public class ProjetIntegration extends Application {
         Stage graphique = new Stage();
         Scene sceneGraphique = new Scene(rootGraphique, 500, 500);
 
-        Button pause = new Button("▶\uFE0E‖");
-        pause.setLayoutX(500);
-        pause.setLayoutY(20);
-        root.getChildren().add(pause);
-
-  /*
-  JE NE SAIS PAS C'EST QUOI LA DIFFENRECE ENTRE ATOMIC
-  BOOLEAN ET BOOLEAN SIMPLE MAIS QUAND C'ÉTAIT ROUGE ÇA M'A PROPOSÉ CELA
-   */
-        AtomicBoolean isPlaying = new AtomicBoolean(true);
-
-        pause.setOnAction(e -> {
-            if (mediaPlayer != null) {
-                if (isPlaying.get()) {
-                    mediaPlayer.pause();
-                    isPlaying.set(false);
-                } else {
-                    mediaPlayer.play();
-                    isPlaying.set(true);
-                }
-            }
-        });
 
 
         Image iconeGraphique = new Image("/iconBARCHART.png");
@@ -130,10 +103,6 @@ public class ProjetIntegration extends Application {
         information.setFont(Font.font(10));
         vbox.getChildren().addAll(titre, information);
 
-//        Button bouton = new Button();
-
-
-
         var timer = new AnimationTimer() {
 
             long dernierTemps = System.nanoTime();
@@ -149,10 +118,9 @@ public class ProjetIntegration extends Application {
                 simulation.update(deltaTemps, pageIntro);
                 simulation.draw(context, simulation, pageIntro);
                 menuPlanetes.setVisible(!pageIntro);
+                forceAmortissement.setVisible(!pageIntro);
 
             }
-
-
 
         };
         timer.start();
@@ -190,20 +158,31 @@ public class ProjetIntegration extends Application {
         menuPlanetes.setPrefWidth(140);
         root.getChildren().add(menuPlanetes);
 
-        menuPlanetes.setVisible(false);
+            menuPlanetes.setVisible(false);
         rootGraphique.getChildren().addAll(partieGraphique);
 
         menuPlanetes.setOnAction(e -> {
             String choix = menuPlanetes.getValue();
             simulation.changerPlanete(choix);
         });
-        this.simulation = simulation;
+this.simulation = simulation;
         scene.setOnKeyPressed((e) -> conditionInput(e.getCode()));
         scene.setOnMousePressed((e) -> conditionInput2(e));
         scene.setOnMouseReleased(e -> Input.setMousePressed(e.getButton(), false));
         scene.setOnMouseDragged((e) -> Input.setMousePosition(e.getX(), e.getY()));
 
         root.getChildren().add(show);
+
+        forceAmortissement.setLayoutX(WIDTH - 230);
+        forceAmortissement.setLayoutY(55);
+        forceAmortissement.setSelected(false);
+        forceAmortissement.setVisible(false); // pas visible si il est sur la page d'introduction
+
+        forceAmortissement.selectedProperty().addListener((obs, old, val) -> {
+            this.simulation.utiliserAmortissement = val;
+
+        });
+        root.getChildren().add(forceAmortissement);
 
         canvas.setOnMouseMoved((e) -> {
             if (pageIntro) {  // marche seulement quand on est sur la page d'intro
@@ -223,8 +202,8 @@ public class ProjetIntegration extends Application {
                 ).getY();
 
                 if (e.getX() >= positionPersonnageX && e.getX() <= positionPersonnageX + taillePersonnageX && e.getY() >= positionPersonnageY && e.getY() <= positionPersonnageY + taillePersonnageY) {
-                    titre.setText(simulation.personnageChoisie.nom);
-                    information.setText("Poid: "+ simulation.personnageChoisie.masse + " kg");
+               titre.setText(simulation.personnageChoisie.nom);
+               information.setText("Poid: "+ simulation.personnageChoisie.masse + " kg");
 
                     popUp.show(stage, screenX, screenY);
                     Platform.runLater(() -> canvas.requestFocus());
@@ -294,21 +273,5 @@ public class ProjetIntegration extends Application {
             }
         }
     }
-
-
-     MediaPlayer mediaPlayer;
-
-
-    public void music(){
-
-        String s = "music.mp3";
-        Media media = new Media("file:/C:/Users/6309244/Documents/GitHub/Projet-equipe_2026/Projet_ressort/src/main/resources/music2.mp3");
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();
-
-    }
-
-
-
 }
 

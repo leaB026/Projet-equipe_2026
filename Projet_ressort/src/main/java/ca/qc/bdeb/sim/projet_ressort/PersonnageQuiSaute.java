@@ -15,6 +15,7 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
     double masse;
     double compressionActuelle;
     boolean toucheLeSol;
+    boolean utiliserAmortissement = true;
 
     public PersonnageQuiSaute(Point2D position, Point2D velocite, Point2D taille, Image nom, double masse) {
         super(position, velocite, taille);
@@ -45,16 +46,23 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
 
 // Empêcher le personnage de descendre plus bas que le bas du ressort
             double posMaxY = ressort.position.getY() + ressort.taille.getY() - taille.getY();
-            position = new Point2D(position.getX(), Math.min(position.getY(), posMaxY));
-
+            if (position.getY() > posMaxY) {
+                position = new Point2D(position.getX(), posMaxY);
+                //Pour éviter des buildup de vélocité quand il dépasse la fenêtre, on le reste à 0.
+                if (velocite.getY() > 0) {
+                    velocite = new Point2D(velocite.getX(), 0);
+                }
+            }
             ressort.setCompression(compressionActuelle);
             forceHooke = -ressort.constanteDeRappel * compressionActuelle;
-
-            double coefficientAmortisement = ressort.ConstanteCoefficientDAmortissement * (2 * Math.pow(masse * ressort.constanteDeRappel, 0.5));
-            forceAmortisement = -coefficientAmortisement * velocite.getY();
-
+            if (utiliserAmortissement) {
+                double coefficientAmortisement = ressort.ConstanteCoefficientDAmortissement * (2 * Math.pow(masse * ressort.constanteDeRappel, 0.5));
+                forceAmortisement = -coefficientAmortisement * velocite.getY();
+            } else {
+                forceAmortisement = 0;
+            }
             forceTotal = forceHooke + forceAmortisement + (masse * planet.gravite);
-            setAcceleration(new Point2D(acceleration.getX(), forceTotal / masse));
+
 
         } else {
             forceHooke = 0;
@@ -65,7 +73,7 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
             setAcceleration(new Point2D(acceleration.getX(), planet.gravite));
 
         }
-
+        setAcceleration(new Point2D(acceleration.getX(), forceTotal / masse));
 
 //La vitesse et la position
         updatePhysique(deltaTemps);

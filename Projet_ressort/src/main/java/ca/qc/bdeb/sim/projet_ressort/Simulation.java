@@ -7,6 +7,8 @@ import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
+import org.controlsfx.control.ToggleSwitch;
+
 import static ca.qc.bdeb.sim.projet_ressort.ProjetIntegration.HEIGHT;
 import static ca.qc.bdeb.sim.projet_ressort.ProjetIntegration.WIDTH;
 
@@ -28,6 +30,7 @@ public class Simulation {
     Ressort ressort;
     Planet planet;
     boolean creerPersonnageFinal = false;
+    public boolean utiliserAmortissement = false;
     ConfirmationChoixPersonnage confirmation = new ConfirmationChoixPersonnage(new Point2D(410, 520), new Point2D(80, 30));
     EnergyChart bc = new EnergyChart("Énergie potentielle gravitationnelle", "Énergie potentielle élastique");
     Slider slider = new Slider(0, 150, 5);
@@ -37,7 +40,7 @@ public class Simulation {
         if (!creationPersonnage) {
             personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 150, HEIGHT * 0.1), new Point2D(300, 381), new Image("hooke1.png"), 20, "Capitaine Rebond"));
             personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 150, HEIGHT * 0.05), new Point2D(300, 471), new Image("HOOKE2.png"), 30, "Ella Sticke"));
-            personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 150, HEIGHT * 0.1 + 50), new Point2D(300, 360), new Image("HOOKE3.png"),10, "Hale Spire"));
+            personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 150, HEIGHT * 0.1 + 50), new Point2D(300, 360), new Image("HOOKE3.png"),10, "Spire Hale"));
             creationPersonnage = true;
         }
         if (!pageIntro) {
@@ -45,9 +48,10 @@ public class Simulation {
                 ressort = new Ressort(new Point2D(WIDTH * 0.5 - 201 / 2, HEIGHT - 64), new Point2D(201, 64), 3000, 0.15);
               changerPlanete(planeteChoisie);
                 personnageFinal = new PersonnageQuiSaute(new Point2D(WIDTH * 0.25 - personnageChoisie.taille.getX() * 0.25, HEIGHT*0.5), new Point2D(0, 0), new Point2D(personnageChoisie.getTaille().getX() * 0.5, personnageChoisie.getTaille().getY() * 0.5), personnageChoisie.image, personnageChoisie.masse);
+//                personnageFinal.utiliserAmortissement = utiliserAmortissement;
                 creerPersonnageFinal = true;
             }
-
+            personnageFinal.utiliserAmortissement = utiliserAmortissement;
             personnageFinal.updateCollisionRessort(deltaTemps, simulation, ressort.estEnCollision(personnageFinal), ressort,planet);
             bc.update(deltaTemps, personnageFinal, slider, planet);
 
