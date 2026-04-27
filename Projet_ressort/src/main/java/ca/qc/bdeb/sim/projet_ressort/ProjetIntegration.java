@@ -327,6 +327,9 @@ public class ProjetIntegration extends Application {
         } else if (e == KeyCode.RIGHT) {
             simulation.personnageSuivant();
         }
+        if(e== KeyCode.P){
+            simulation.personnageFinal.setPause(!simulation.personnageFinal.isPause());
+        }
         Input.setKeyPressed(e, true);
     }
 
