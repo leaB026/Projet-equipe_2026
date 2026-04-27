@@ -54,6 +54,7 @@ public class Simulation {
             personnageFinal.utiliserAmortissement = utiliserAmortissement;
             personnageFinal.updateCollisionRessort(deltaTemps, simulation, ressort.estEnCollision(personnageFinal), ressort,planet);
             bc.update(deltaTemps, personnageFinal, slider, planet);
+            
 
 
         }
