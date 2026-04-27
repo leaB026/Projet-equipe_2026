@@ -3,11 +3,14 @@ package ca.qc.bdeb.sim.projet_ressort;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,6 +24,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Popup;
@@ -54,38 +58,58 @@ public class ProjetIntegration extends Application {
         root.getChildren().add(canvas);
         var context = canvas.getGraphicsContext2D();
 
-        Pane rootGraphique = new Pane();
+//        Pane rootGraphique = new Pane();
         VBox partieGraphique = new VBox(45);
-        Stage graphique = new Stage();
-        Scene sceneGraphique = new Scene(rootGraphique, 500, 500);
-
+//        Stage graphique = new Stage();
+//        Scene sceneGraphique = new Scene(rootGraphique, 500, 500);
+        Popup popup1 = new Popup();
 
         Image iconeGraphique = new Image("/iconBARCHART.png");
         ImageView imgViewGrah = new ImageView(iconeGraphique);
         imgViewGrah.setFitWidth(30);
         imgViewGrah.setFitHeight(30);
 
+        partieGraphique.setPadding(new Insets(15, 12, 15, 12));
+        HBox fermer = new HBox();
+//https://www.geeksforgeeks.org/java/javafx-font-class/
+        Font font = Font.font("Verdana", FontWeight.BOLD, 12);
+
         Button show = new Button();
-        Text k = new Text("Constante de rappel");
-        k.setTextAlignment(TextAlignment.CENTER);
-        k.setStyle("-fx-font-size: 12px");
+//
+//        k.setTextAlignment(TextAlignment.CENTER);
+//        k.setStyle("-fx-font-size: 12px");
 
         Text jouerK = new Text("Jouez avec la constante de rappel! ");
         jouerK.setTextAlignment(TextAlignment.CENTER);
         jouerK.setStyle("-fx-font-size: 12px");
+        jouerK.setFont(font);
+
+        Label labelK = new Label("k = 250 N/m");
+        labelK.setFont(font);
+
 
         show.setGraphic(imgViewGrah);
         show.setStyle("-fx-background-color: transparent;");
 
-        //CLAUDE AI
-        graphique.addEventFilter(KeyEvent.ANY, e -> {
-            if (e.getEventType() == KeyEvent.KEY_PRESSED) {
-                scene.getOnKeyPressed().handle(e);
-            } else if (e.getEventType() == KeyEvent.KEY_RELEASED) {
-                scene.getOnKeyReleased().handle(e);
-            }
-            e.consume();
+        Button hide = new Button("Fermer");
+
+        hide.setFont(font);
+        hide.setStyle("-fx-background-color: #EF9F27;");
+        hide.setOnMouseEntered((e) -> {
+
+
+            hide.setStyle("-fx-background-color: #BA7517;");
         });
+
+
+        hide.setOnMouseExited((e) -> {
+
+
+
+
+            hide.setStyle("-fx-background-color: #EF9F27;");
+        });
+        canvas.requestFocus();
 
 
         var popUp = new Popup();
@@ -132,21 +156,41 @@ public class ProjetIntegration extends Application {
         BackgroundFill background_fill = new BackgroundFill(Color.LIGHTGRAY, radii, Insets.EMPTY);
 
 
+
         partieGraphique.setPrefWidth(500);
-        partieGraphique.setPrefHeight(500);
+        partieGraphique.setPrefHeight(700);
 
         Background background = new Background(background_fill);
+
+
+        fermer.getChildren().add(hide);
+        fermer.setAlignment(Pos.CENTER_LEFT);
+
+
+        partieGraphique.getChildren().add(fermer);
 
 
         partieGraphique.setBackground(background);
 
         partieGraphique.getChildren().add(simulation.bc.getBc());
 
-        partieGraphique.getChildren().add(k);
 
         partieGraphique.getChildren().add(jouerK);
 
+        partieGraphique.getChildren().add(labelK);
+
         partieGraphique.getChildren().add(simulation.slider);
+        //https://docs.oracle.com/javase/8/javafx/user-interface-tutorial/slider.htm#CCHFBJCH
+        simulation.getSlider().valueProperty().addListener((ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
+            labelK.setText( "K = " + new_val.doubleValue()/10 + "N/m");
+        });
+
+        partieGraphique.setAlignment(Pos.CENTER);
+
+        popup1.getContent().add(partieGraphique);
+        popup1.setAutoHide(false);
+
+
 
         // MENU DEROULANT PLANET
 
@@ -159,7 +203,6 @@ public class ProjetIntegration extends Application {
         root.getChildren().add(menuPlanetes);
 
         menuPlanetes.setVisible(false);
-        rootGraphique.getChildren().addAll(partieGraphique);
 
         menuPlanetes.setOnAction(e -> {
             String choix = menuPlanetes.getValue();
@@ -219,17 +262,29 @@ public class ProjetIntegration extends Application {
 
         stage.setScene(scene);
         stage.setTitle("Boing Boing 3000");
-        graphique.setScene(sceneGraphique);
+
         stage.show();
+
         show.setOnAction((e) -> {
 
-            graphique.setX(-5);
-            graphique.show();
-        });
-        graphique.setOnCloseRequest((e) -> {
-            graphique.hide();
 
+            if (popup1.isShowing()) {
+                popup1.hide();
+            } else {
+                popup1.show(stage, stage.getX() - 600, stage.getY());
+            }
+            canvas.requestFocus();
         });
+
+
+        hide.setOnAction((e) -> {
+
+
+            if (popup1.isShowing()) {
+                popup1.hide();
+            }
+        });
+
     }
 
     public void conditionInput(KeyCode e) {

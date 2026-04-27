@@ -1,5 +1,6 @@
 package ca.qc.bdeb.sim.projet_ressort;
 
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Slider;
@@ -32,8 +33,8 @@ public class Simulation {
     boolean creerPersonnageFinal = false;
     public boolean utiliserAmortissement = false;
     ConfirmationChoixPersonnage confirmation = new ConfirmationChoixPersonnage(new Point2D(410, 520), new Point2D(80, 30));
-    EnergyChart bc = new EnergyChart("Énergie potentielle gravitationnelle", "Énergie potentielle élastique");
-    Slider slider = new Slider(0, 150, 5);
+    EnergyChart bc = new EnergyChart("Énergie potentielle gravitationnelle", "Énergie potentielle élastique", "Énergie cinétique", "Énergie dissipée");
+    Slider slider = new Slider(2500, 30000, 2500);
     String planeteChoisie= "Terre";
 
     public void update(double deltaTemps, boolean pageIntro) {
@@ -45,15 +46,21 @@ public class Simulation {
         }
         if (!pageIntro) {
             if (!creerPersonnageFinal) {
-                ressort = new Ressort(new Point2D(WIDTH * 0.5 - 201 / 2, HEIGHT - 64), new Point2D(201, 64), 3000, 0.15);
-              changerPlanete(planeteChoisie);
+                ressort = new Ressort(new Point2D(WIDTH * 0.5 - 201 / 2, HEIGHT - 64), new Point2D(201, 64), slider.getValue(), 0.15);
+                //https://docs.oracle.com/javase/8/javafx/user-interface-tutorial/slider.htm#CCHFBJCH
+                slider.valueProperty().addListener((ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
+                    ressort.setConstanteDeRappel(new_val.doubleValue());
+                });
+                slider.setBlockIncrement(500);
+
+                changerPlanete(planeteChoisie);
                 personnageFinal = new PersonnageQuiSaute(new Point2D(WIDTH * 0.25 - personnageChoisie.taille.getX() * 0.25, HEIGHT*0.5), new Point2D(0, 0), new Point2D(personnageChoisie.getTaille().getX() * 0.5, personnageChoisie.getTaille().getY() * 0.5), personnageChoisie.image, personnageChoisie.masse);
 //                personnageFinal.utiliserAmortissement = utiliserAmortissement;
                 creerPersonnageFinal = true;
             }
             personnageFinal.utiliserAmortissement = utiliserAmortissement;
             personnageFinal.updateCollisionRessort(deltaTemps, simulation, ressort.estEnCollision(personnageFinal), ressort,planet);
-            bc.update(deltaTemps, personnageFinal, slider, planet);
+            bc.update(deltaTemps, personnageFinal, slider, planet, ressort);
             
 
 
@@ -118,5 +125,9 @@ public class Simulation {
 
     public EnergyChart getBc() {
         return bc;
+    }
+
+    public Slider getSlider() {
+        return slider;
     }
 }
