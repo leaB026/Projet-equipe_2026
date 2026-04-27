@@ -22,6 +22,8 @@ import javafx.scene.layout.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -32,6 +34,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.controlsfx.control.ToggleSwitch;
 
@@ -49,6 +52,8 @@ public class ProjetIntegration extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
+
+        music();
         Simulation simulation = new Simulation();
 
         var root = new Pane();
@@ -63,6 +68,32 @@ public class ProjetIntegration extends Application {
 //        Stage graphique = new Stage();
 //        Scene sceneGraphique = new Scene(rootGraphique, 500, 500);
         Popup popup1 = new Popup();
+
+        Button pause = new Button("▶\uFE0E‖");
+        pause.setLayoutX(850);
+        pause.setLayoutY(200);
+
+        root.getChildren().add(pause);
+//        pause.setVisible(!pageIntro);
+          /*
+  JE NE SAIS PAS C'EST QUOI LA DIFFENRECE ENTRE ATOMIC
+  BOOLEAN ET BOOLEAN SIMPLE MAIS QUAND C'ÉTAIT ROUGE ÇA M'A PROPOSÉ CELA
+   */
+        AtomicBoolean isPlaying = new AtomicBoolean(true);
+
+        pause.setOnAction(e -> {
+            if (mediaPlayer != null) {
+                if (isPlaying.get()) {
+                    mediaPlayer.pause();
+                    isPlaying.set(false);
+                } else {
+                    mediaPlayer.play();
+                    isPlaying.set(true);
+                }
+            }
+        });
+
+
 
         Image iconeGraphique = new Image("/iconBARCHART.png");
         ImageView imgViewGrah = new ImageView(iconeGraphique);
@@ -105,8 +136,6 @@ public class ProjetIntegration extends Application {
         hide.setOnMouseExited((e) -> {
 
 
-
-
             hide.setStyle("-fx-background-color: #EF9F27;");
         });
         canvas.requestFocus();
@@ -129,6 +158,7 @@ public class ProjetIntegration extends Application {
 
         var timer = new AnimationTimer() {
 
+
             long dernierTemps = System.nanoTime();
 
             @Override
@@ -144,6 +174,8 @@ public class ProjetIntegration extends Application {
                 menuPlanetes.setVisible(!pageIntro);
                 forceAmortissement.setVisible(!pageIntro);
 
+                pause.setVisible(!pageIntro);
+
             }
 
         };
@@ -154,7 +186,6 @@ public class ProjetIntegration extends Application {
         CornerRadii radii = new CornerRadii(10);
         Insets insets = new Insets(10);
         BackgroundFill background_fill = new BackgroundFill(Color.LIGHTGRAY, radii, Insets.EMPTY);
-
 
 
         partieGraphique.setPrefWidth(500);
@@ -182,14 +213,13 @@ public class ProjetIntegration extends Application {
         partieGraphique.getChildren().add(simulation.slider);
         //https://docs.oracle.com/javase/8/javafx/user-interface-tutorial/slider.htm#CCHFBJCH
         simulation.getSlider().valueProperty().addListener((ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
-            labelK.setText( "K = " + new_val.doubleValue()/10 + "N/m");
+            labelK.setText("K = " + new_val.doubleValue() / 10 + "N/m");
         });
 
         partieGraphique.setAlignment(Pos.CENTER);
 
         popup1.getContent().add(partieGraphique);
         popup1.setAutoHide(false);
-
 
 
         // MENU DEROULANT PLANET
@@ -332,5 +362,21 @@ public class ProjetIntegration extends Application {
             }
         }
     }
+
+
+    MediaPlayer mediaPlayer;
+
+
+    public void music() {
+        //CODE POUR MUSIC
+
+        Media media = new Media(getClass().getResource("/music2.mp3").toExternalForm());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.play();
+
+    }
 }
+
+
+
 
