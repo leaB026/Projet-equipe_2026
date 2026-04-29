@@ -20,8 +20,6 @@ public class Simulation {
     ArrayList<ChoixPersonnage> personnages = new ArrayList<>();
     ChoixPersonnage personnageChoisie = new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 150, HEIGHT * 0.1), new Point2D(300, 381), new Image("hooke1.png"), 20, "Capitaine Rebond");
     boolean creationPersonnage = false;
-    //    ChoixPersonnage personnageChoisie;
-//    Image imagePersonnage = new Image("hooke1.png");
     int indexPersonnage = 0;
     double chronometre;
     FlecheChoixPersonnage flecheG = new FlecheChoixPersonnage(new Point2D(200, 320), new Point2D(30, 80), new Image("flecheGauche.png"));
@@ -40,7 +38,7 @@ public class Simulation {
     public void update(double deltaTemps, boolean pageIntro) {
         if (!creationPersonnage) {
             personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 150, HEIGHT * 0.1), new Point2D(300, 381), new Image("hooke1.png"), 20, "Capitaine Rebond"));
-            personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 150, HEIGHT * 0.05), new Point2D(300, 471), new Image("HOOKE2.png"), 30, "Ella Sticke"));
+            personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 150, HEIGHT * 0.05), new Point2D(300, 471), new Image("HOOKE2.png"), 40, "Ella Sticke"));
             personnages.add(new ChoixPersonnage(new Point2D(WIDTH * 0.5 - 150, HEIGHT * 0.1 + 50), new Point2D(300, 360), new Image("HOOKE3.png"),10, "Spire Hale"));
             creationPersonnage = true;
         }
@@ -52,7 +50,6 @@ public class Simulation {
                     ressort.setConstanteDeRappel(new_val.doubleValue());
                 });
                 slider.setBlockIncrement(500);
-
                 changerPlanete(planeteChoisie);
                 personnageFinal = new PersonnageQuiSaute(new Point2D(WIDTH * 0.25 - personnageChoisie.taille.getX() * 0.25, HEIGHT*0.5), new Point2D(0, 0), new Point2D(personnageChoisie.getTaille().getX() * 0.5, personnageChoisie.getTaille().getY() * 0.5), personnageChoisie.image, personnageChoisie.masse);
 //                personnageFinal.utiliserAmortissement = utiliserAmortissement;
@@ -61,11 +58,7 @@ public class Simulation {
             personnageFinal.utiliserAmortissement = utiliserAmortissement;
             personnageFinal.updateCollisionRessort(deltaTemps, simulation, ressort.estEnCollision(personnageFinal), ressort,planet);
             bc.update(deltaTemps, personnageFinal, slider, planet, ressort);
-            
-
-
         }
-
     }
 
     public void draw(GraphicsContext context, Simulation simulation, boolean pageIntro) {
@@ -121,12 +114,9 @@ public class Simulation {
             case "Mars"  -> planet = new Planet(3.72, new Image("bgMars.jpeg"));
         }
     }
-
-
     public EnergyChart getBc() {
         return bc;
     }
-
     public Slider getSlider() {
         return slider;
     }

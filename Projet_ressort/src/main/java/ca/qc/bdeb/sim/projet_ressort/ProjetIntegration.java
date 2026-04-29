@@ -11,11 +11,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -33,7 +31,6 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.controlsfx.control.ToggleSwitch;
@@ -329,6 +326,13 @@ public class ProjetIntegration extends Application {
         }
         if(e== KeyCode.P){
             simulation.personnageFinal.setPause(!simulation.personnageFinal.isPause());
+        }
+        if(e == KeyCode.H){
+            simulation.personnageFinal.setVecteurLoiHooke(!simulation.personnageFinal.isVecteurLoiHooke());
+        }
+        if(e== KeyCode.G){
+            simulation.personnageFinal.setVecteurForceGravit(!simulation.personnageFinal.isVecteurForceGravit());
+
         }
         Input.setKeyPressed(e, true);
     }
