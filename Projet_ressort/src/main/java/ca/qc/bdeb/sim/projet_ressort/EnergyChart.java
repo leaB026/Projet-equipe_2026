@@ -87,47 +87,49 @@ public class EnergyChart {
     }
 
 
-    public void update(double dt, PersonnageQuiSaute perso, Slider slider, Planet planet, Ressort ressort) {
+    public void update(double dt, PersonnageQuiSaute perso, Slider slider, Planet planet, Ressort ressort, Simulation simulation) {
 
 
         double mgh = perso.masse * planet.gravite * (ProjetIntegration.HEIGHT - perso.position.getY());
         double elastique = 0.5 * slider.getValue()/10 * Math.pow(ressort.compression, 2);
         double k = 0.5 * perso.masse * Math.pow(perso.getVelocite().getY() , 2);
         double eTotale = mgh + elastique + k;
-        if(perso.estEnTrainDeTirerPersonnage){
-            eInitiale = eTotale;
+        //Si force pas de force d'amortissement avec un if force d'amortissement =0
+        if(!perso.pause) {
+            if (perso.estEnTrainDeTirerPersonnage) {
+                eInitiale = eTotale;
+            }
+            eDissipee = Math.abs(eTotale - eInitiale);
+
+
+            if (perso.position.getY() >= ProjetIntegration.HEIGHT - perso.getTaille().getY()) {
+
+                mgh = 0;
+                k = 0;
+                eDissipee = 0;
+
+            }
+            if (ressort.compression <= 0) {
+
+                elastique = 0;
+
+            }
+            if (!simulation.utiliserAmortissement) {
+                eDissipee = 0;
+            }
+
+
+            if (ePG != null && ePE != null && eC != null && eD != null) {
+                ePG.getData().get(0).setYValue(mgh);
+                ePE.getData().get(0).setYValue(elastique);
+                eC.getData().get(0).setYValue(k);
+                eD.getData().get(0).setYValue(eDissipee);
+
+
+            }
+
+
         }
-        eDissipee = Math.abs(eTotale - eInitiale);
-
-
-        if(perso.position.getY() >= ProjetIntegration.HEIGHT - perso.getTaille().getY()){
-
-            mgh = 0;
-            k =0;
-           eDissipee =0;
-
-        }
-        if(ressort.compression <=0){
-
-            elastique = 0;
-
-        }
-
-
-        if(ePG != null && ePE != null && eC != null && eD != null) {
-            ePG.getData().get(0).setYValue(mgh);
-            ePE.getData().get(0).setYValue(elastique);
-            eC.getData().get(0).setYValue(k);
-            eD.getData().get(0).setYValue(eDissipee);
-
-
-
-        }
-
-
-
-
-
 
     }
 
