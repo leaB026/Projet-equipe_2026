@@ -175,7 +175,6 @@ public class ProjetIntegration extends Application {
 
             @Override
             public void handle(long temps) {
-
                 double deltaTemps = (temps - dernierTemps) * 1e-9;
                 dernierTemps = temps;
 
@@ -605,6 +604,11 @@ public class ProjetIntegration extends Application {
         if (e.getButton() == MouseButton.PRIMARY) {
             double positionX = e.getX();
             double positionY = e.getY();
+            double debutX = simulation.confirmation.getPosition().getX();
+            double debutY =  simulation.confirmation.getPosition().getY();
+            double finX =  simulation.confirmation.getPosition().getX() + simulation.confirmation.getTaille().getX();
+            double finY = simulation.confirmation.getPosition().getY() + simulation.confirmation.getTaille().getY();
+
 
             if (pageIntro) {
                 if (positionY > 320 && positionY < 400) {
@@ -614,8 +618,8 @@ public class ProjetIntegration extends Application {
                         simulation.personnageSuivant();
                     }
                 }
-                if (positionY > 520 && positionY < 550) {
-                    if (positionX > 410 && positionX < 490) {
+                if (positionY > debutY && positionY < finY) {
+                    if (positionX > debutX && positionX < finX) {
                         pageIntro = false;
                     }
                 }

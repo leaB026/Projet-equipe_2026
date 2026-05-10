@@ -2,12 +2,16 @@ package ca.qc.bdeb.sim.projet_ressort;
 
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class ConfirmationChoixPersonnage extends ObjetsStatique{
 
-    public ConfirmationChoixPersonnage(Point2D position, Point2D taille) {
+    Image nom;
+
+    public ConfirmationChoixPersonnage(Point2D position, Point2D taille, Image nom) {
         super(position, taille);
+        this.nom = nom;
     }
 
     @Override
@@ -18,10 +22,7 @@ public class ConfirmationChoixPersonnage extends ObjetsStatique{
     @Override
     protected void draw(GraphicsContext contexte, Simulation simulation) {
         super.draw(contexte, simulation);
-
-        contexte.setFill(Color.GREEN);
-        contexte.fillRect(position.getX(), position.getY(), taille.getX(), taille.getY());
-
+        contexte.drawImage(nom,position.getX(), position.getY(), taille.getX(), taille.getY());
     }
 
     @Override

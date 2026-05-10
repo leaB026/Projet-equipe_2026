@@ -7,6 +7,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.controlsfx.control.ToggleSwitch;
 
@@ -32,7 +33,7 @@ public class Simulation {
     Planet planet;
     boolean creerPersonnageFinal = false;
     public boolean utiliserAmortissement = false;
-    ConfirmationChoixPersonnage confirmation = new ConfirmationChoixPersonnage(new Point2D(410, 520), new Point2D(80, 30));
+    ConfirmationChoixPersonnage confirmation = new ConfirmationChoixPersonnage(new Point2D(WIDTH/2 - 68.8, HEIGHT*3/4 + 30), new Point2D(137.6, 61.6),new Image("confirmation.png"));
     EnergyChart bc = new EnergyChart("Énergie potentielle gravitationnelle", "Énergie potentielle élastique", "Énergie cinétique", "Énergie dissipée");
     Slider slider = new Slider(2500, 30000, 2500);
     String planeteChoisie= "Terre";
@@ -83,8 +84,6 @@ public class Simulation {
             ressort.draw(context, simulation);
             back.draw(context, simulation);
         }
-
-
 
     }
 

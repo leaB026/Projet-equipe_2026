@@ -28,6 +28,7 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
     Point2D ancienneVelocite;
     boolean vecteurLoiHooke;
     boolean vecteurForceGravit;
+    boolean premierBoutonPause = false;
 
     public PersonnageQuiSaute(Point2D position, Point2D velocite, Point2D taille, Image nom, double masse) {
         super(position, velocite, taille);
@@ -35,21 +36,27 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
         this.toucheLeTrampoline = true;
         this.masse = masse;
     }
+
     public void setPause(boolean pause) {
         this.pause = pause;
     }
+
     public boolean isPause() {
         return pause;
     }
+
     public boolean isVecteurLoiHooke() {
         return vecteurLoiHooke;
     }
+
     public void setVecteurLoiHooke(boolean vecteurLoiHooke) {
         this.vecteurLoiHooke = vecteurLoiHooke;
     }
+
     public boolean isVecteurForceGravit() {
         return vecteurForceGravit;
     }
+
     public void setVecteurForceGravit(boolean vecteurForceGravit) {
         this.vecteurForceGravit = vecteurForceGravit;
     }
@@ -59,9 +66,13 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
     }
 
     protected void updateCollisionRessort(double deltaTemps, Simulation simulation, boolean encollision, Ressort ressort, Planet planet) {
-        valeurEnregister.add(getAcceleration());
-        valeurEnregister.add(getVelocite());
         if (!pause) {
+            boolean estDepause = premierBoutonPause;
+            if (!estDepause) {
+                valeurEnregister.add(getAcceleration());
+                valeurEnregister.add(getVelocite());
+            }
+            premierBoutonPause = false;
             tempsTotal += deltaTemps;
             setAcceleration(valeurEnregister.getFirst());
             setVelocite(valeurEnregister.getLast());
@@ -105,7 +116,9 @@ Calcules des forces et du mouvement physique du personnage et du ressort
             setAcceleration(new Point2D(acceleration.getX(), forceTotal / masse));
 
 //La vitesse et la position
-            updatePhysique(deltaTemps);
+            if (!estDepause) {
+                updatePhysique(deltaTemps);
+            }
 //Collision et effet sur le ressort
             if (!encollision && getBas() < ressort.getHaut()) {
                 toucheLeTrampoline = false;
@@ -143,9 +156,14 @@ Calcules des forces et du mouvement physique du personnage et du ressort
                 position = new Point2D(position.getX(), Math.clamp(position.getY(), -3000, HEIGHT - taille.getY()));
             }
         }
+
         if (pause) {
-            valeurEnregister.add(getAcceleration());
-            valeurEnregister.add(getVelocite());
+            if (!premierBoutonPause) {
+                valeurEnregister.clear();
+                valeurEnregister.add(getAcceleration());
+                valeurEnregister.add(getVelocite());
+                premierBoutonPause = true;
+            }
             setAcceleration(new Point2D(0, 0));
             setVelocite(new Point2D(0, 0));
         }
@@ -168,13 +186,13 @@ Calcules des forces et du mouvement physique du personnage et du ressort
             contexte.strokeLine(centrePersonnageX, centrePersonnageTopY + forceHooke * scaleLoiHooke, centrePersonnageX - 5, centrePersonnageTopY + forceHooke * scaleLoiHooke + 5);
             contexte.strokeLine(centrePersonnageX, centrePersonnageTopY + forceHooke * scaleLoiHooke, centrePersonnageX + 5, centrePersonnageTopY + forceHooke * scaleLoiHooke + 5);
         }
-        if(vecteurForceGravit){
+        if (vecteurForceGravit) {
             //Dessiner le vecteur de la force graviationelle
             contexte.setStroke(Color.GREEN);
             contexte.strokeLine(centrePersonnageX, centrePersonnageBottomY, centrePersonnageX, centrePersonnageBottomY + forceGravitationnelle * scaleForceGravitationnelle);
             contexte.strokeLine(centrePersonnageX, centrePersonnageBottomY + forceGravitationnelle * scaleForceGravitationnelle, centrePersonnageX - 5, centrePersonnageBottomY + forceGravitationnelle * scaleForceGravitationnelle - 5);
             contexte.strokeLine(centrePersonnageX, centrePersonnageBottomY + forceGravitationnelle * scaleForceGravitationnelle, centrePersonnageX + 5, centrePersonnageBottomY + forceGravitationnelle * scaleForceGravitationnelle - 5);
-            }
+        }
 
         super.draw(contexte, simulation);
         contexte.drawImage(image, position.getX(), position.getY(), taille.getX(), taille.getY());
