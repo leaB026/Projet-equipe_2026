@@ -4,10 +4,10 @@ import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public abstract class ObjetsStatique extends ObjetDuJeu{
+public abstract class ObjetsStatique extends ObjetDuJeu {
 
     public ObjetsStatique(Point2D position, Point2D taille) {
-        super(position, new Point2D(0,0), taille);
+        super(position, new Point2D(0, 0), taille);
     }
 
     @Override
@@ -20,9 +20,7 @@ public abstract class ObjetsStatique extends ObjetDuJeu{
         super.draw(contexte, simulation/*, modeDebuge, modeChamp1*/);
     }
 
-    protected void draw(GraphicsContext contexte, Simulation simulation, ChoixPersonnage personnage){};
-
-
-
+    protected void draw(GraphicsContext contexte, Simulation simulation, ChoixPersonnage personnage) {
+    }
 
 }

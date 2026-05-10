@@ -11,24 +11,22 @@ import java.util.ArrayList;
 import static ca.qc.bdeb.sim.projet_ressort.ProjetIntegration.HEIGHT;
 
 public class PersonnageQuiSaute extends ObjetDuJeu {
-    Image image;
-    boolean toucheLeTrampoline;
-    boolean estEnTrainDeTirerPersonnage;
-    double masse;
-    double compressionActuelle;
-    boolean toucheLeSol;
-    boolean utiliserAmortissement = true;
-    double forceTotal;
-    double forceHooke;
-    double forceAmortisement;
-    double forceGravitationnelle;
-    boolean pause;
-    ArrayList<Point2D> valeurEnregister = new ArrayList<>();
-    Point2D ancienneAcceleration;
-    Point2D ancienneVelocite;
-    boolean vecteurLoiHooke;
-    boolean vecteurForceGravit;
-    boolean premierBoutonPause = false;
+    private Image image;
+    protected boolean toucheLeTrampoline;
+    protected boolean estEnTrainDeTirerPersonnage;
+    protected double masse;
+    private double compressionActuelle;
+    protected boolean toucheLeSol;
+    protected boolean utiliserAmortissement = true;
+    private double forceTotal;
+    private double forceHooke;
+    private double forceAmortisement;
+    private double forceGravitationnelle;
+    protected boolean pause;
+    protected ArrayList<Point2D> valeurEnregistrer = new ArrayList<>();
+    private boolean vecteurLoiHooke;
+    private boolean vecteurForceGravit;
+    private boolean premierBoutonPause = false;
 
     public PersonnageQuiSaute(Point2D position, Point2D velocite, Point2D taille, Image nom, double masse) {
         super(position, velocite, taille);
@@ -65,24 +63,24 @@ public class PersonnageQuiSaute extends ObjetDuJeu {
     protected void update(double deltaTemps, Simulation simulation) {
     }
 
-    protected void updateCollisionRessort(double deltaTemps, Simulation simulation, boolean encollision, Ressort ressort, Planet planet) {
+    protected void updateCollisionRessort(double deltaTemps, Simulation simulation, boolean enCollision, Ressort ressort, Planet planet) {
         if (!pause) {
             boolean estDepause = premierBoutonPause;
             if (!estDepause) {
-                valeurEnregister.add(getAcceleration());
-                valeurEnregister.add(getVelocite());
+                valeurEnregistrer.add(getAcceleration());
+                valeurEnregistrer.add(getVelocite());
             }
             premierBoutonPause = false;
             tempsTotal += deltaTemps;
-            setAcceleration(valeurEnregister.getFirst());
-            setVelocite(valeurEnregister.getLast());
-            valeurEnregister.clear();
+            setAcceleration(valeurEnregistrer.getFirst());
+            setVelocite(valeurEnregistrer.getLast());
+            valeurEnregistrer.clear();
 /*
 Calcules des forces et du mouvement physique du personnage et du ressort
          Au lieu de faire la différence entre le personnage et le ressort,
          on donne un maximum à la compression que le personnage peut effectuer sur le ressort
  */
-            if (encollision) {
+            if (enCollision) {
                 compressionActuelle = Math.max(0, getBas() - ressort.position.getY());
 
 // Empêcher le personnage de descendre plus bas que le bas du ressort
@@ -120,9 +118,9 @@ Calcules des forces et du mouvement physique du personnage et du ressort
                 updatePhysique(deltaTemps);
             }
 //Collision et effet sur le ressort
-            if (!encollision && getBas() < ressort.getHaut()) {
+            if (!enCollision && getBas() < ressort.getHaut()) {
                 toucheLeTrampoline = false;
-            } else if (encollision) {
+            } else if (enCollision) {
                 toucheLeTrampoline = true;
             }
 
@@ -152,16 +150,16 @@ Calcules des forces et du mouvement physique du personnage et du ressort
                 toucheLeTrampoline = false;
             }
 
-            if (!encollision) {
+            if (!enCollision) {
                 position = new Point2D(position.getX(), Math.clamp(position.getY(), -3000, HEIGHT - taille.getY()));
             }
         }
 
         if (pause) {
             if (!premierBoutonPause) {
-                valeurEnregister.clear();
-                valeurEnregister.add(getAcceleration());
-                valeurEnregister.add(getVelocite());
+                valeurEnregistrer.clear();
+                valeurEnregistrer.add(getAcceleration());
+                valeurEnregistrer.add(getVelocite());
                 premierBoutonPause = true;
             }
             setAcceleration(new Point2D(0, 0));

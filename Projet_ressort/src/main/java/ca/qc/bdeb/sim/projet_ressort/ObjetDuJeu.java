@@ -40,15 +40,7 @@ public abstract class ObjetDuJeu {
         position = position.add(velocite.multiply(deltaTemps));
     }
 
-    protected void draw(GraphicsContext contexte,  Simulation simulation /*,boolean modeDebuge, boolean modeChamp1*/) {
-//        Point2D posEcran = this.position.subtract(camera.getPositionCamera());
-//
-//        if (modeDebuge) {
-//            contexte.setStroke(Color.YELLOW);
-//            contexte.strokeRect(posEcran.getX(), posEcran.getY(), this.taille.getX(), this.taille.getY());
-//            contexte.setLineWidth(3);
-//
-//        }
+    protected void draw(GraphicsContext contexte,  Simulation simulation) {
     }
 
     public double getHaut() {

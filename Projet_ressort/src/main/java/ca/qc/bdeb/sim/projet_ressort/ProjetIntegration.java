@@ -51,8 +51,8 @@ public class ProjetIntegration extends Application {
     private Simulation simulation;
     protected boolean pageIntro = true;
     private ChoiceBox<String> menuPlanetes;
-    ToggleSwitch forceAmortissement = new ToggleSwitch();
-    boolean estApparu = false;
+    protected ToggleSwitch forceAmortissement = new ToggleSwitch();
+    protected boolean estApparu = false;
 
     @Override
     public void start(Stage stage) throws IOException {

@@ -1,6 +1,4 @@
 package ca.qc.bdeb.sim.projet_ressort;
-import javafx.scene.Node;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -10,18 +8,18 @@ import javafx.scene.control.Slider;
 
 public class EnergyChart {
     private javafx.scene.chart.BarChart<String, Number> bc;
-    String energiePotentielleGravitationnelle;
-    String energiePotentielleElastique;
-    String energieCinetique;
-    String energieDissipee;
-    CategoryAxis xAxis;
-    NumberAxis yAxis;
-    XYChart.Series<String, Number> ePG;
-    XYChart.Series<String, Number> ePE;
-    XYChart.Series<String, Number> eC;
-    XYChart.Series<String, Number> eD;
-    double eDissipee =0;
-    double eInitiale =0;
+   private String energiePotentielleGravitationnelle;
+   private String energiePotentielleElastique;
+   private String energieCinetique;
+   private String energieDissipee;
+   private CategoryAxis xAxis;
+   private NumberAxis yAxis;
+   private XYChart.Series<String, Number> ePG;
+   private XYChart.Series<String, Number> ePE;
+   private XYChart.Series<String, Number> eC;
+   private XYChart.Series<String, Number> eD;
+   private double eDissipee =0;
+   private double eInitiale =0;
 
 
 
@@ -78,11 +76,6 @@ public class EnergyChart {
 
 
 //        bc.setMaxWidth(300);
-
-
-
-
-
 
     }
 

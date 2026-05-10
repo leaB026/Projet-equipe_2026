@@ -5,9 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class GoBack extends ObjetsStatique {
-
-    Image nom;
-
+    protected Image nom;
     public GoBack(Point2D position, Point2D taille, Image nom) {
         super(position, taille);
         this.nom = nom;

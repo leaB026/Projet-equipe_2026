@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 
 public class ConfirmationChoixPersonnage extends ObjetsStatique{
 
-    Image nom;
+    protected Image nom;
 
     public ConfirmationChoixPersonnage(Point2D position, Point2D taille, Image nom) {
         super(position, taille);
@@ -26,7 +26,5 @@ public class ConfirmationChoixPersonnage extends ObjetsStatique{
     }
 
     @Override
-    protected void draw(GraphicsContext contexte, Simulation simulation, ChoixPersonnage personnage) {
-
-    }
+    protected void draw(GraphicsContext contexte, Simulation simulation, ChoixPersonnage personnage) {}
 }

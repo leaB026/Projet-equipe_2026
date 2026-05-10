@@ -13,9 +13,20 @@ public class Input {
     private static final Set<KeyCode> touches = new HashSet<>();
     private static final Set<MouseButton> click = new HashSet<>();
 
-    //Coordonée de la souris
-
+    //Coordonée de la souris. Pour suivre le mouvement de la souris
+    private static double mouseX = 0;
+    private static double mouseY = 0;
     //personnage.update() va demander si certaines touches sont appuyées ou non
+
+    // Retourne les valeurs de la position de la souris
+    public static double getMouseX() {
+        return mouseX;
+    }
+
+    public static double getMouseY() {
+        return mouseY;
+    }
+
     public static boolean isKeyPressed(KeyCode code) {
         return touches.contains(code);
     }
@@ -26,31 +37,16 @@ public class Input {
 
         else touches.remove(code);
     }
-
     public static boolean isMousePressed(MouseButton mouse) {
         return click.contains(mouse);
     }
-
     public static void setMousePressed(MouseButton mouse, boolean appuie ){
         if (appuie) click.add(mouse);
 
         else  click.remove(mouse);
     }
-
-    //Pour suivre le mouvement de la souris
-    private static double mouseX = 0;
-    private static double mouseY = 0;
-    // Retourne les valeurs de la position de la souris
-    public static double getMouseX() {
-        return mouseX;
-    }
-
-    public static double getMouseY() {
-        return mouseY;
-    }
     public static void setMousePosition(double x, double y) {
         mouseX = x;
         mouseY = y;
     }
-
 }

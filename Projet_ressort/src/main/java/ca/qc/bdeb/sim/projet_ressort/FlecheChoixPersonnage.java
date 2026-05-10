@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 
 public class FlecheChoixPersonnage extends ObjetsStatique{
 
-    Image nom;
+   protected Image nom;
     public FlecheChoixPersonnage(Point2D position, Point2D taille, Image nom) {
         super(position, taille);
         this.nom = nom;
