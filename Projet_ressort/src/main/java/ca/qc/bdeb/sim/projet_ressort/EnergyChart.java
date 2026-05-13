@@ -67,7 +67,8 @@ public class EnergyChart {
 
 
 
-
+        xAxis.setTickLabelsVisible(false);
+        xAxis.setTickMarkVisible(false);
 
         yAxis.setTickLabelsVisible(false);
         yAxis.setTickMarkVisible(false);

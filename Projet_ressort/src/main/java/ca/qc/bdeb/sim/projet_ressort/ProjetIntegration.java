@@ -233,7 +233,7 @@ show.setGraphic(imgViewGrah);
         Insets insets = new Insets(10);
 
 
-        partieGraphique.setPrefWidth(300);
+        partieGraphique.setPrefWidth(400);
         partieGraphique.setPrefHeight(500);
 
 
@@ -347,22 +347,23 @@ show.setGraphic(imgViewGrah);
                 imgPreview.setImage(bgTerre);
                 titreP.setText("Terre");
                 nomPlanete.setText("Terre");
-                banniere.setStyle("-fx-background-color: #A8C5A0;");
-                jeuOptions.setBackground(Background.fill(Color.web("#A8C5A0")));
-                partieGraphique.setBackground(Background.fill(Color.web("#A8C5A0")));
+                banniere.setStyle("-fx-background-color: rgba(168, 197, 160, 0.25);");
+                jeuOptions.setBackground(Background.fill(Color.web("rgba(168, 197, 160, 0.25)")));
+                partieGraphique.setBackground(Background.fill(Color.web("rgba(168, 197, 160, 0.25)")));
             } else if(index[0] == 1){
                 imgPreview.setImage(bgLune);
+                titreP.setText("Lune");
                 nomPlanete.setText("Lune");
-                banniere.setStyle("-fx-background-color: #8FA8B8;");
-                jeuOptions.setBackground(Background.fill(Color.web("#8FA8B8")));
-                partieGraphique.setBackground(Background.fill(Color.web("#8FA8B8")));
+                banniere.setStyle("-fx-background-color: rgba(143, 168, 184, 0.25);");
+                jeuOptions.setBackground(Background.fill(Color.web("rgba(143, 168, 184, 0.25)")));
+                partieGraphique.setBackground(Background.fill(Color.web("rgba(143, 168, 184, 0.25)")));
             } else if(index[0] == 2){
                 imgPreview.setImage(bgMars);
                 titreP.setText("Mars");
                 nomPlanete.setText("Mars");
-                banniere.setStyle("-fx-background-color: #D4845A;");
-                jeuOptions.setBackground(Background.fill(Color.web("#D4845A")));
-                partieGraphique.setBackground(Background.fill(Color.web("#D4845A")));
+                banniere.setStyle("-fx-background-color: rgba(212, 132, 90, 0.25);");
+                jeuOptions.setBackground(Background.fill(Color.web("rgba(212, 132, 90, 0.25)")));
+                partieGraphique.setBackground(Background.fill(Color.web("rgba(212, 132, 90, 0.25)")));
 
             }
 
@@ -381,23 +382,23 @@ show.setGraphic(imgViewGrah);
                 imgPreview.setImage(bgTerre);
                 titreP.setText("Terre");
                 nomPlanete.setText("Terre");
-                banniere.setStyle("-fx-background-color: #A8C5A0;");
-                jeuOptions.setBackground(Background.fill(Color.web("#A8C5A0")));
-                partieGraphique.setBackground(Background.fill(Color.web("#A8C5A0")));
+                banniere.setStyle("-fx-background-color: rgba(168, 197, 160, 0.25);");
+                jeuOptions.setBackground(Background.fill(Color.web("rgba(168, 197, 160, 0.25)")));
+                partieGraphique.setBackground(Background.fill(Color.web("rgba(168, 197, 160, 0.25)")));
             } else if(index[0] == 1){
                 imgPreview.setImage(bgLune);
                 titreP.setText("Lune");
                 nomPlanete.setText("Lune");
-                banniere.setStyle("-fx-background-color: #8FA8B8;");
-                jeuOptions.setBackground(Background.fill(Color.web("#8FA8B8")));
-                partieGraphique.setBackground(Background.fill(Color.web("#8FA8B8")));
+                banniere.setStyle("-fx-background-color: rgba(143, 168, 184, 0.25);");
+                jeuOptions.setBackground(Background.fill(Color.web("rgba(143, 168, 184, 0.25)")));
+                partieGraphique.setBackground(Background.fill(Color.web("rgba(143, 168, 184, 0.25)")));
             } else if(index[0] == 2){
                 imgPreview.setImage(bgMars);
                 titreP.setText("Mars");
                 nomPlanete.setText("Mars");
-                banniere.setStyle("-fx-background-color: #D4845A;");
-                jeuOptions.setBackground(Background.fill(Color.web("#D4845A")));
-                partieGraphique.setBackground(Background.fill(Color.web("#D4845A")));
+                banniere.setStyle("-fx-background-color: rgba(212, 132, 90, 0.25);");
+                jeuOptions.setBackground(Background.fill(Color.web("rgba(212, 132, 90, 0.25)")));
+                partieGraphique.setBackground(Background.fill(Color.web("rgba(212, 132, 90, 0.25)")));
 
             }
 
@@ -654,8 +655,6 @@ show.setGraphic(imgViewGrah);
         planetes.setOnMouseExited((e) -> {
             planetes.setScaleX(1.0);
         });
-
-
 
 
         banniere.setPrefWidth(WIDTH);
