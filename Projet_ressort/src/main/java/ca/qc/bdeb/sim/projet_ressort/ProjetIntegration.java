@@ -11,12 +11,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 
-import javafx.scene.control.Separator;
+import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
-
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -73,22 +69,50 @@ public class ProjetIntegration extends Application {
         Font font = Font.font("Verdana", FontWeight.BOLD, 12);
 
         Popup popup1 = new Popup();
+
+        Button showSlider = new Button("⛭");
 //"♫"
-        Button parametres = new Button("Settings: DEMO");
-        Button planetes = new Button("Planètes");
+        Button parametres = new Button();
+        Button planetes = new Button();
         Button pause = new Button();
-        Image iconeMusique = new Image("Capture_d_écran_2026-05-04_012727-removebg-preview.png");
+        Image iconeMusique = new Image("onn-removebg-preview.png");
+        Image iconeMusiqueOff = new Image("offf-removebg-preview.png");
+        ImageView imgOffMusic = new ImageView(iconeMusiqueOff);
+        Image iconePl = new Image("iconpl.png");
+        Image iconeParam = new Image("settings-removebg-preview.png");
         ImageView imgMusique = new ImageView(iconeMusique);
-        imgMusique.setFitWidth(50);
+        ImageView imgpl = new ImageView(iconePl);
+        ImageView imgParam = new ImageView(iconeParam);
+        imgMusique.setFitWidth(40);
         imgMusique.setFitHeight(50);
+        imgOffMusic.setFitWidth(40);
+        imgOffMusic.setFitHeight(50);
+        imgpl.setFitWidth(40);
+        imgpl.setFitHeight(50);
+        imgParam.setFitWidth(40);
+        imgParam.setFitHeight(50);
         pause.setGraphic(imgMusique);
+        parametres.setGraphic(imgParam);
+        planetes.setGraphic(imgpl);
+        parametres.setStyle("-fx-background-color: transparent;");
+        planetes.setStyle("-fx-background-color: transparent;");
         pause.setStyle("-fx-background-color: transparent;");
+        HBox banniere = new HBox(15);
+        Label nomPlanete = new Label("Terre");
+        VBox jeuOptions = new VBox(20);
 
-//        pause.setLayoutX(850);
-//        pause.setLayoutY(200);
+
+        Button hideSlider = new Button("Fermer");
+        hideSlider.setFont(font);
+        hideSlider.setStyle("-fx-background-color: #5D6D7E;");
+        hideSlider.setOnMouseEntered((e) -> {
+                hideSlider.setStyle("-fx-background-color: #34495E;");
+        });
+        hideSlider.setOnMouseExited((e) -> {
+                hideSlider.setStyle("-fx-background-color: #5D6D7E;");
+    });
 
 
-//        pause.setVisible(!pageIntro);
           /*
   JE NE SAIS PAS C'EST QUOI LA DIFFENRECE ENTRE ATOMIC
   BOOLEAN ET BOOLEAN SIMPLE MAIS QUAND C'ÉTAIT ROUGE ÇA M'A PROPOSÉ CELA
@@ -100,25 +124,28 @@ public class ProjetIntegration extends Application {
                 if (isPlaying.get()) {
                     mediaPlayer.pause();
                     isPlaying.set(false);
+                    pause.setGraphic(imgOffMusic);
+
                 } else {
                     mediaPlayer.play();
                     isPlaying.set(true);
+                    pause.setGraphic(imgMusique);
                 }
             }
         });
 
 
 
-        Image iconeGraphique = new Image("Capture_d_écran_2026-05-04_014610-removebg-preview.png");
+        Image iconeGraphique = new Image("iconBARCHART.png");
         ImageView imgViewGrah = new ImageView(iconeGraphique);
-        imgViewGrah.setFitWidth(70);
-        imgViewGrah.setFitHeight(60);
+        imgViewGrah.setFitWidth(50);
+        imgViewGrah.setFitHeight(40);
 
         partieGraphique.setPadding(new Insets(15, 12, 15, 12));
         HBox fermer = new HBox();
 
         Button show = new Button();
-//
+show.setGraphic(imgViewGrah);
 //        k.setTextAlignment(TextAlignment.CENTER);
 //        k.setStyle("-fx-font-size: 12px");
 
@@ -129,26 +156,29 @@ public class ProjetIntegration extends Application {
 
         Label labelK = new Label("k = 250 N/m");
         labelK.setFont(font);
+        VBox sliderSection = new VBox(8);
+        sliderSection.setAlignment(Pos.CENTER);
+        sliderSection.getChildren().addAll(jouerK, labelK, simulation.slider);
 
+//        show.setGraphic(imgViewGrah);
 
-        show.setGraphic(imgViewGrah);
         show.setStyle("-fx-background-color: transparent;");
 
         Button hide = new Button("Fermer");
 
         hide.setFont(font);
-        hide.setStyle("-fx-background-color: #EF9F27;");
+        hide.setStyle("-fx-background-color: #5D6D7E;");
         hide.setOnMouseEntered((e) -> {
 
 
-            hide.setStyle("-fx-background-color: #BA7517;");
+            hide.setStyle("-fx-background-color: #34495E;");
         });
 
 
         hide.setOnMouseExited((e) -> {
 
 
-            hide.setStyle("-fx-background-color: #EF9F27;");
+            hide.setStyle("-fx-background-color: #5D6D7E;");
         });
         canvas.requestFocus();
 
@@ -158,8 +188,13 @@ public class ProjetIntegration extends Application {
 
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(20));
-        vbox.setBackground(Background.fill(Color.BISQUE));
-
+        vbox.setStyle(
+                "-fx-background-color: #A8C5A0; "+
+                        "-fx-border-color: #5D6D7E; " +
+                        "-fx-border-width: 2px; " +
+                        "-fx-background-radius: 5px; " +
+                        "-fx-border-radius: 5px;"
+        );
         popUp.getContent().add(vbox);
         Text titre = new Text(simulation.personnageChoisie.nom);
         titre.setFont(Font.font(20));
@@ -182,11 +217,10 @@ public class ProjetIntegration extends Application {
 
                 simulation.update(deltaTemps, pageIntro);
                 simulation.draw(context, simulation, pageIntro);
-                menuPlanetes.setVisible(!pageIntro);
                 forceAmortissement.setVisible(!pageIntro);
                 parametres.setVisible(!pageIntro);
                 planetes.setVisible(!pageIntro);
-
+                banniere.setVisible(!pageIntro);
                 pause.setVisible(!pageIntro);
 
             }
@@ -197,35 +231,27 @@ public class ProjetIntegration extends Application {
 
         CornerRadii radii = new CornerRadii(10);
         Insets insets = new Insets(10);
-        BackgroundFill background_fill = new BackgroundFill(Color.LIGHTGRAY, radii, Insets.EMPTY);
 
 
-        partieGraphique.setPrefWidth(500);
-        partieGraphique.setPrefHeight(700);
+        partieGraphique.setPrefWidth(300);
+        partieGraphique.setPrefHeight(500);
 
-        Background background = new Background(background_fill);
 
 
         fermer.getChildren().add(hide);
         fermer.setAlignment(Pos.CENTER_LEFT);
 
 
-        partieGraphique.getChildren().add(fermer);
-
-
-        partieGraphique.setBackground(background);
 
         partieGraphique.getChildren().add(simulation.bc.getBc());
+        partieGraphique.getChildren().add(hide);
 
+        jeuOptions.setBackground(Background.fill(Color.web("#A8C5A0")));
+        partieGraphique.setBackground(Background.fill(Color.web("#A8C5A0")));
 
-        partieGraphique.getChildren().add(jouerK);
-
-        partieGraphique.getChildren().add(labelK);
-
-        partieGraphique.getChildren().add(simulation.slider);
         //https://docs.oracle.com/javase/8/javafx/user-interface-tutorial/slider.htm#CCHFBJCH
         simulation.getSlider().valueProperty().addListener((ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
-            labelK.setText("K = " + new_val.doubleValue() / 10 + "N/m");
+            labelK.setText("K = " + String.format("%.1f",new_val.doubleValue() / 10 ) + "N/m");
         });
 
         partieGraphique.setAlignment(Pos.CENTER);
@@ -234,46 +260,30 @@ public class ProjetIntegration extends Application {
         popup1.setAutoHide(false);
 
 
-        // MENU DEROULANT PLANET
-
-        menuPlanetes = new ChoiceBox<>();
-        menuPlanetes.getItems().addAll("Terre", "Lune", "Mars");
-        menuPlanetes.setValue("Planètes");
-        menuPlanetes.setLayoutX(WIDTH - 160);
-        menuPlanetes.setLayoutY(20);
-        menuPlanetes.setPrefWidth(140);
-
-        menuPlanetes.setVisible(false);
-
-        menuPlanetes.setOnAction(e -> {
-            String choix = menuPlanetes.getValue();
-            simulation.changerPlanete(choix);
-        });
+//        // MENU DEROULANT PLANET
+//
+//        menuPlanetes = new ChoiceBox<>();
+//        menuPlanetes.getItems().addAll("Terre", "Lune", "Mars");
+//        menuPlanetes.setValue("Planètes");
+//        menuPlanetes.setLayoutX(WIDTH - 160);
+//        menuPlanetes.setLayoutY(20);
+//        menuPlanetes.setPrefWidth(140);
+//
+//        menuPlanetes.setVisible(false);
+//
+//        menuPlanetes.setOnAction(e -> {
+//            String choix = menuPlanetes.getValue();
+//            simulation.changerPlanete(choix);
+//        });
 
        //scroll POUR LE CHANGEMENT DE BACKGROUNDS
 
         StackPane bgs = new StackPane();
         bgs.setPrefWidth(200);
         bgs.setPrefHeight(200);
-        bgs.setLayoutX(400);
-        bgs.setLayoutY(240);
+        bgs.setLayoutX(650);
+        bgs.setLayoutY(350);
 
-
-        planetes.setLayoutX(750);
-        planetes.setLayoutY(200);
-        planetes.setFont(font);
-        planetes.setStyle("-fx-background-color: #C9B8E8;");
-        planetes.setOnMouseEntered((e) -> {
-
-
-            planetes.setStyle("-fx-background-color: #A990D4;");
-        });
-
-        planetes.setOnMouseExited((e) -> {
-
-
-            planetes.setStyle("-fx-background-color: #C9B8E8;");
-        });
 
         Button choixBgs = new Button();
         Button choixBgsR = new Button();
@@ -321,6 +331,9 @@ public class ProjetIntegration extends Application {
         imgterre.setPreserveRatio(false);
         int index[] = {0};
 
+            Text titreP = new Text("Terre");
+            titreP.setFont(font);
+
         choixBgs.setOnAction(e -> {
             index[0]++;
 
@@ -332,13 +345,28 @@ public class ProjetIntegration extends Application {
 
             if(index[0] == 0){
                 imgPreview.setImage(bgTerre);
+                titreP.setText("Terre");
+                nomPlanete.setText("Terre");
+                banniere.setStyle("-fx-background-color: #A8C5A0;");
+                jeuOptions.setBackground(Background.fill(Color.web("#A8C5A0")));
+                partieGraphique.setBackground(Background.fill(Color.web("#A8C5A0")));
             } else if(index[0] == 1){
                 imgPreview.setImage(bgLune);
+                nomPlanete.setText("Lune");
+                banniere.setStyle("-fx-background-color: #8FA8B8;");
+                jeuOptions.setBackground(Background.fill(Color.web("#8FA8B8")));
+                partieGraphique.setBackground(Background.fill(Color.web("#8FA8B8")));
             } else if(index[0] == 2){
                 imgPreview.setImage(bgMars);
+                titreP.setText("Mars");
+                nomPlanete.setText("Mars");
+                banniere.setStyle("-fx-background-color: #D4845A;");
+                jeuOptions.setBackground(Background.fill(Color.web("#D4845A")));
+                partieGraphique.setBackground(Background.fill(Color.web("#D4845A")));
+
             }
 
-
+            canvas.requestFocus();
         });
         choixBgsR.setOnAction(e -> {
             index[0]--;
@@ -351,13 +379,29 @@ public class ProjetIntegration extends Application {
 
             if(index[0] == 0){
                 imgPreview.setImage(bgTerre);
+                titreP.setText("Terre");
+                nomPlanete.setText("Terre");
+                banniere.setStyle("-fx-background-color: #A8C5A0;");
+                jeuOptions.setBackground(Background.fill(Color.web("#A8C5A0")));
+                partieGraphique.setBackground(Background.fill(Color.web("#A8C5A0")));
             } else if(index[0] == 1){
                 imgPreview.setImage(bgLune);
+                titreP.setText("Lune");
+                nomPlanete.setText("Lune");
+                banniere.setStyle("-fx-background-color: #8FA8B8;");
+                jeuOptions.setBackground(Background.fill(Color.web("#8FA8B8")));
+                partieGraphique.setBackground(Background.fill(Color.web("#8FA8B8")));
             } else if(index[0] == 2){
                 imgPreview.setImage(bgMars);
+                titreP.setText("Mars");
+                nomPlanete.setText("Mars");
+                banniere.setStyle("-fx-background-color: #D4845A;");
+                jeuOptions.setBackground(Background.fill(Color.web("#D4845A")));
+                partieGraphique.setBackground(Background.fill(Color.web("#D4845A")));
+
             }
 
-
+            canvas.requestFocus();
         });
         boolean []estVisible = {false};
 
@@ -371,13 +415,14 @@ public class ProjetIntegration extends Application {
                 bgs.setVisible(false);
                 estVisible[0]= false;
             }
+            canvas.requestFocus();
         });
-
+        bgs.setStyle("-fx-border-color: black; -fx-border-width: 2; -fx-border-style: solid;");
         bgs.getChildren().add(imgPreview);
         bgs.getChildren().add(choixBgs);
         bgs.getChildren().add(choixBgsR);
+        bgs.getChildren().add(titreP);
         root.getChildren().add(bgs);
-        root.getChildren().add(planetes);
         StackPane.setAlignment(choixBgs, Pos.CENTER_RIGHT);
         StackPane.setAlignment(choixBgsR, Pos.CENTER_LEFT);
 
@@ -393,7 +438,6 @@ public class ProjetIntegration extends Application {
         //GAME OPTIONS MENU
 
         //https://www.tutorialspoint.com/javafx/javafx_translate_transition.htm
-        VBox jeuOptions = new VBox(20);
         jeuOptions.setPadding(new Insets(5, 12, 15, 12));
         jeuOptions.setAlignment(Pos.CENTER);
         Label titrePanel = new Label("⛭ Paramètres!");
@@ -401,9 +445,6 @@ public class ProjetIntegration extends Application {
         titrePanel.setFont(Font.font("Courier New", FontWeight.BOLD, 20));
 
         jeuOptions.getChildren().add(titrePanel);
-
-        HBox topJeuOptions = new HBox(50);
-        topJeuOptions.setAlignment(Pos.CENTER);
         Separator sep = new Separator(Orientation.HORIZONTAL);
         HBox bottomJeuOptions = new HBox(50);
         bottomJeuOptions.setAlignment(Pos.CENTER);
@@ -418,24 +459,20 @@ public class ProjetIntegration extends Application {
 
         Label labelAmortissement = new Label("Force d'amortissement");
         labelAmortissement.setFont(font);
-        VBox toggleAvecLabel = new VBox(2);
+        VBox toggleAvecLabel = new VBox(5);
         toggleAvecLabel.setAlignment(Pos.CENTER);
         toggleAvecLabel.getChildren().addAll(labelAmortissement, forceAmortissement);
-        forceAmortissement.setStyle("-fx-base: #F4A96D;");
+        forceAmortissement.setStyle("-fx-base: #5D6D7E;");
 
-        topJeuOptions.getChildren().add(menuPlanetes);
-        topJeuOptions.getChildren().add(toggleAvecLabel);
-        bottomJeuOptions.getChildren().add(show);
-        bottomJeuOptions.getChildren().add(pause);
+
         //not visible au début
         jeuOptions.setVisible(false);
 
         //Position du VBox au début
-        jeuOptions.setLayoutX(300);
+        jeuOptions.setLayoutX((WIDTH - 400) / 2);
         jeuOptions.setLayoutY(100);
 
         //Background et taille du Vbox
-        jeuOptions.setBackground(Background.fill(Color.web("#FFE5D0")));
         jeuOptions.setPrefWidth(400);
         jeuOptions.setPrefHeight(400);
 
@@ -454,8 +491,7 @@ public class ProjetIntegration extends Application {
         translateTransition2.setNode(jeuOptions);
 
 
-        parametres.setLayoutX(750);
-        parametres.setLayoutY(100);
+
 
         parametres.setOnAction((e) -> {
             if(!estApparu) {
@@ -468,39 +504,58 @@ public class ProjetIntegration extends Application {
                 translateTransition2.play();
                 estApparu = false;
             }
+            canvas.requestFocus();
 
         });
         //Claude
         translateTransition2.setOnFinished(e1 -> jeuOptions.setVisible(false));
         forceAmortissement.setFont(font);
-        parametres.setFont(font);
-        pause.setFont(font);
-        parametres.setStyle("-fx-background-color: #C9B8E8;");
-        parametres.setOnMouseEntered((e) -> {
+
+        partieGraphique.setEffect(dropShadow);
 
 
-            parametres.setStyle("-fx-background-color: #A990D4;");
+        Button fermerM = new Button("Fermer");
+
+        fermerM.setFont(font);
+        fermerM.setStyle("-fx-background-color: #5D6D7E; -fx-background-radius: 10;");
+        fermerM.setOnMouseEntered((e) -> {
+
+
+            fermerM.setStyle("-fx-background-color: #34495E;");
         });
 
-        parametres.setOnMouseExited((e) -> {
+
+        fermerM.setOnMouseExited((e) -> {
 
 
-            parametres.setStyle("-fx-background-color: #C9B8E8;");
+            fermerM.setStyle("-fx-background-color: #5D6D7E;");
         });
-        pause.setPrefWidth(50);
-        pause.setPrefHeight(50);
+
+        fermerM.setOnAction((e) -> {
+            if(!estApparu) {
+                jeuOptions.setTranslateY(600);
+                jeuOptions.setVisible(true);
+                translateTransition.play();
+                estApparu = true;
+            }
+            else if(estApparu){
+                translateTransition2.play();
+                estApparu = false;
+            }
+            canvas.requestFocus();
+        });
 
 
-        jeuOptions.getChildren().add(topJeuOptions);
-        jeuOptions.getChildren().add(sep);
-        jeuOptions.getChildren().add(bottomJeuOptions);
 
-        root.getChildren().add(jeuOptions);
-        root.getChildren().add(parametres);
-
-        menuPlanetes.setStyle("-fx-background-color: #F4A96D; -fx-mark-color: white; -fx-font-family: Verdana; -fx-font-size: 12px;");
         //FIN: GAME OPTIONS MENU
 
+        CheckBox vecteurs = new CheckBox("Vecteurs");
+        vecteurs.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            simulation.personnageFinal.setVecteurLoiHooke(newVal);
+            simulation.personnageFinal.setVecteurForceGravit(newVal);
+        });
+        jeuOptions.getChildren().addAll(toggleAvecLabel, sep, sliderSection, vecteurs, fermerM);
+        root.getChildren().add(jeuOptions);
 
 
 
@@ -513,6 +568,7 @@ public class ProjetIntegration extends Application {
             this.simulation.utiliserAmortissement = val;
 
         });
+
 
 
         canvas.setOnMouseMoved((e) -> {
@@ -557,7 +613,7 @@ public class ProjetIntegration extends Application {
             if (popup1.isShowing()) {
                 popup1.hide();
             } else {
-                popup1.show(stage, stage.getX() - 600, stage.getY());
+                popup1.show(stage, stage.getX() + 50, stage.getY() + 100);
             }
             canvas.requestFocus();
         });
@@ -569,7 +625,57 @@ public class ProjetIntegration extends Application {
             if (popup1.isShowing()) {
                 popup1.hide();
             }
+            canvas.requestFocus();
         });
+
+        parametres.setOnMouseEntered((e) -> {
+            parametres.setScaleX(1.2);
+        });
+        parametres.setOnMouseExited((e) -> {
+            parametres.setScaleX(1.0);
+        });
+
+        show.setOnMouseEntered((e) -> {
+            show.setScaleX(1.2);
+        });
+        show.setOnMouseExited((e) -> {
+            show.setScaleX(1.0);
+        });
+        pause.setOnMouseEntered((e) -> {
+            pause.setScaleX(1.2);
+        });
+        pause.setOnMouseExited((e) -> {
+            pause.setScaleX(1.0);
+        });
+
+        planetes.setOnMouseEntered((e) -> {
+            planetes.setScaleX(1.2);
+        });
+        planetes.setOnMouseExited((e) -> {
+            planetes.setScaleX(1.0);
+        });
+
+
+
+
+        banniere.setPrefWidth(WIDTH);
+        banniere.setPrefHeight(50);
+        banniere.setLayoutX(0);
+        banniere.setLayoutY(0);
+        banniere.setAlignment(Pos.CENTER);
+        banniere.setPadding(new Insets(8, 20, 8, 20));
+        banniere.setStyle("-fx-background-color: rgba(168, 197, 160, 0.7); ");
+        banniere.setVisible(!pageIntro);
+
+        nomPlanete.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+//        nomPlanete.setTextFill(Color.WHITE);
+        Region spacer1 = new Region();
+
+        HBox.setHgrow(spacer1, Priority.ALWAYS);
+       nomPlanete.setAlignment(Pos.CENTER_LEFT);
+
+        banniere.getChildren().addAll(nomPlanete, spacer1, show, parametres, pause, planetes);
+        root.getChildren().add(banniere);
 
     }
 
@@ -646,6 +752,8 @@ public class ProjetIntegration extends Application {
         mediaPlayer.play();
 
     }
+
+
 }
 
 

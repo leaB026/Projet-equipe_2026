@@ -44,7 +44,7 @@ public class EnergyChart {
 
         bc.setTitle("Sommaire des énergies");
         xAxis.setLabel("Type d'énergie");
-        yAxis.setLabel("Valeur");
+        yAxis.setLabel("Énergie");
 
 
         ePG.setName("Énergie potentielle gravitationnelle");
@@ -69,7 +69,8 @@ public class EnergyChart {
 
 
 
-
+        yAxis.setTickLabelsVisible(false);
+        yAxis.setTickMarkVisible(false);
         bc.setLegendVisible(true);
         bc.setStyle("-fx-font-family: 'Verdana'; -fx-font-size: 12px;");
         bc.setAnimated(false);
