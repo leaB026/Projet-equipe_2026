@@ -604,7 +604,7 @@ show.setGraphic(imgViewGrah);
         });
 
         stage.setScene(scene);
-        stage.setTitle("Boing Boing 3000");
+        stage.setTitle("Spring Lab");
 
         stage.show();
 
