@@ -11,6 +11,7 @@ public class FlecheChoixPersonnage extends ObjetsStatique{
     public FlecheChoixPersonnage(Point2D position, Point2D taille, Image nom) {
         super(position, taille);
         this.nom = nom;
+        
     }
 
     @Override
